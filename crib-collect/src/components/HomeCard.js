@@ -16,7 +16,10 @@ class HomeCard extends React.Component {
   render() {
     return (
       <div className="card">
-        <CardHeader title={this.props.homeDetails.title}></CardHeader>
+        <CardHeader 
+          title={this.props.homeDetails.title} 
+          price={this.props.homeDetails.price}>
+        </CardHeader>
         <div className="card-content">
           <CardAttributes attributes={this.props.homeDetails.attributes}></CardAttributes>
         </div>
