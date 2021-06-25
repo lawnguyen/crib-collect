@@ -5,12 +5,14 @@ import HomeCard from './components/HomeCard.js';
 class App extends React.Component {
   render() {
     return (
-      <div class="app">
-        <div class="columns is-multiline">
+      <div className="app">
+        <div className="columns is-multiline">
 
           {this.props.homes.map(home => (
-            <div class="column is-one-quarter-tablet is-one-fifth-desktop">
-              <HomeCard homeDetails={home} key={home.link}></HomeCard>
+            <div 
+              key={home.link} 
+              className="column is-one-quarter-widescreen is-one-half-tablet">
+              <HomeCard homeDetails={home}></HomeCard>
             </div>
           ))}
         </div>

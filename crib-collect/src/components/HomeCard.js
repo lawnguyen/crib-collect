@@ -15,9 +15,9 @@ import CardAttributes from './CardAttributesList';
 class HomeCard extends React.Component {
   render() {
     return (
-      <div class="card">
+      <div className="card">
         <CardHeader title={this.props.homeDetails.title}></CardHeader>
-        <div class="card-content">
+        <div className="card-content">
           <CardAttributes attributes={this.props.homeDetails.attributes}></CardAttributes>
         </div>
         <CardFooter></CardFooter>
