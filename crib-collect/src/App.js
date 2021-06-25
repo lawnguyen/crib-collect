@@ -11,7 +11,7 @@ class App extends React.Component {
           {this.props.homes.map(home => (
             <div 
               key={home.link} 
-              className="column is-one-quarter-widescreen is-one-half-tablet">
+              className="column is-one-quarter-fullhd is-one-half-tablet is-one-third-desktop">
               <HomeCard homeDetails={home}></HomeCard>
             </div>
           ))}

@@ -7,7 +7,7 @@ class CardAttributes extends React.Component {
     const attributes = this.props.attributes;
     return (
       <div className="content">
-        <table className="table is-narrow">
+        <table className="table">
           <tbody>
             {Object.keys(attributes).map(attr => (
                 <Attribute key={attr} name={attr} value={attributes[attr]}></Attribute>
