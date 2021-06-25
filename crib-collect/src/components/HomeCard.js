@@ -8,21 +8,13 @@
  *  - DeleteCardButton: button to delete home card
  */
 import React from 'react';
+import CardHeader from './CardHeader';
 
 class HomeCard extends React.Component {
   render() {
     return (
       <div class="card">
-        <header class="card-header">
-          <p class="card-header-title">
-            Component
-          </p>
-          <button class="card-header-icon" aria-label="more options">
-            <span class="icon">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </header>
+        <CardHeader title={this.props.homeDetails.title}></CardHeader>
         <div class="card-content">
           <div class="content">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
