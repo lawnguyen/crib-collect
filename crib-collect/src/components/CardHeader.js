@@ -7,7 +7,7 @@ class CardHeader extends React.Component {
       <header className="card-header">
         <p className="card-header-title">
           <span className="price">
-            {this.props.price}
+            ${this.props.price}
           </span>
           {this.props.title}
         </p>
