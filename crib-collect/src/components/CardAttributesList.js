@@ -1,20 +1,29 @@
 import React from 'react';
 import Attribute from './Attribute';
 import './CardAttributesList.css';
+import bed from '../icons/bed.svg';
+import bath from '../icons/bath.svg';
+import sqft from '../icons/sqft.svg';
+import laundry from '../icons/laundry.svg';
+import neighborhood from '../icons/neighborhood.svg';
+import parking from '../icons/parking.svg';
+import utilities from '../icons/utilities.svg';
+import building from '../icons/building.svg';
+import notes from '../icons/notes.svg';
 
 class CardAttributes extends React.Component {
   render() {
     const attributes = this.props.attributes;
     let attrToDisplayMap = {
-      bedrooms: { label: "beds", icon: '' },
-      bathrooms: { label: "baths", icon: '' },
-      sqft: { label: "sqft", icon: '' },
-      insuiteLaundry: { label: "w/d", icon: '' },
-      neighborhood: { label: "area", icon: '' },
-      parking: { label: "parking", icon: '' },
-      utilities: { label: "utilities", icon: '' },
-      buildingType: { label: "home type", icon: '' },
-      notes: { label: "notes", icon: '' }
+      bedrooms: { label: "beds", icon: bed },
+      bathrooms: { label: "baths", icon: bath },
+      sqft: { label: "sqft", icon: sqft },
+      insuiteLaundry: { label: "w/d", icon: laundry },
+      neighborhood: { label: "area", icon: neighborhood },
+      parking: { label: "parking", icon: parking },
+      utilities: { label: "utilities", icon: utilities },
+      buildingType: { label: "type", icon: building },
+      notes: { label: "notes", icon: notes }
     };
 
     return (
