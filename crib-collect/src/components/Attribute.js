@@ -12,7 +12,7 @@ class Attribute extends React.Component {
           </span>
         </td>
         <td>
-          {this.props.value}
+          {this.props.value.toString()}
         </td>
       </tr>
     )
