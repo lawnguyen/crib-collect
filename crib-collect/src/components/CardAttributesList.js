@@ -10,6 +10,7 @@ import parking from '../icons/parking.svg';
 import utilities from '../icons/utilities.svg';
 import building from '../icons/building.svg';
 import notes from '../icons/notes.svg';
+import aircon from '../icons/aircon.svg';
 
 class CardAttributes extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class CardAttributes extends React.Component {
       neighborhood: { label: "area", icon: neighborhood },
       parking: { label: "parking", icon: parking },
       utilities: { label: "utilities", icon: utilities },
+      airConditioning: { label: "ac", icon: aircon },
       buildingType: { label: "type", icon: building },
       notes: { label: "notes", icon: notes }
     };

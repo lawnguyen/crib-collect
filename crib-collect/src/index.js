@@ -19,6 +19,7 @@ const HOMES = [
       neighborhood: "Coal Harbour",
       parking: "1 included, rent for $100/month",
       utilities: ["Water", "Electricity", "Heat"],
+      airConditioning: true,
       buildingType: "Condo",
       notes: "building will be demolished within a year"
     }
@@ -36,6 +37,7 @@ const HOMES = [
       neighborhood: "East Vancouver",
       parking: "1 included",
       utilities: [],
+      airConditioning: true,
       buildingType: "Townhouse",
       notes: "suspiciously cheap"
     }
