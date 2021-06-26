@@ -6,10 +6,14 @@ class Attribute extends React.Component {
     return (
       <tr>
         <td>
-          <img className="icon" src={this.props.icon}/>
-          {this.props.name}
+          <img className="icon" src={this.props.icon} />
+          <span className="attr-name">
+            {this.props.name}
+          </span>
         </td>
-        <td>{this.props.value}</td>
+        <td>
+          {this.props.value}
+        </td>
       </tr>
     )
   }

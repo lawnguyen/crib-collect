@@ -18,7 +18,7 @@ class CardAttributes extends React.Component {
       bedrooms: { label: "beds", icon: bed },
       bathrooms: { label: "baths", icon: bath },
       sqft: { label: "sqft", icon: sqft },
-      insuiteLaundry: { label: "w/d", icon: laundry },
+      laundry: { label: "w/d", icon: laundry },
       neighborhood: { label: "area", icon: neighborhood },
       parking: { label: "parking", icon: parking },
       utilities: { label: "utilities", icon: utilities },
