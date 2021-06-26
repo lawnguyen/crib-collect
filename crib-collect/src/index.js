@@ -10,6 +10,7 @@ const HOMES = [
     link: "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-bed-coal-harbor/7338643305.html",
     title: "Spacious 3 Bed w/ Coal Harbor Views Move-in Incentives and Parking!",
     price: 4000,
+    dateAdded: 1519211809934,
     attributes: {
       bedrooms: 3,
       bathrooms: 2,
@@ -26,6 +27,7 @@ const HOMES = [
     link: "https://www.facebook.com/marketplace/item/4019080401546837/",
     title: "4 Beds · 3 Baths · Townhouse",
     price: 3450,
+    dateAdded: 1519211809769,
     attributes: {
       bedrooms: 4,
       bathrooms: 3,
