@@ -9,6 +9,8 @@ function App(props) {
   const [homes, updateHomes] = useState(props.homes);
 
   function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    
     const items = Array.from(homes);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
