@@ -21,16 +21,16 @@ function App(props) {
   return (
     <div className="app">
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="homes">
+        <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
-            <ul {...provided.droppableProps} ref={provided.innerRef}>
+            <ul className="homes" {...provided.droppableProps} ref={provided.innerRef}>
               {homes.map((home, index) => {
                 return (
                   <Draggable key={home.link} draggableId={home.link} index={index}>
                     {(provided) => (
                       <li
                         ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                        className="column is-one-quarter-fullhd is-half-tablet is-one-third-desktop">
+                        className="home column is-one-quarter-fullhd is-half-tablet is-one-third-desktop">
                         <HomeCard homeDetails={home}></HomeCard>
                       </li>
                     )}

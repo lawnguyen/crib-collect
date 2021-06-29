@@ -41,6 +41,78 @@ const HOMES = [
       buildingType: "Townhouse",
       notes: "suspiciously cheap"
     }
+  },
+  {
+    link: "https://www.facebook.com/marketplace/item/419080401546837/",
+    title: "4 Beds · 3 Baths · Townhouse",
+    price: 3450,
+    dateAdded: 1519211809769,
+    attributes: {
+      bedrooms: 4,
+      bathrooms: 3,
+      sqft: 1800,
+      laundry: "in-unit",
+      neighborhood: "East Vancouver",
+      parking: "1 included",
+      utilities: [],
+      airConditioning: true,
+      buildingType: "Townhouse",
+      notes: "suspiciously cheap"
+    }
+  },
+  {
+    link: "https://www.facebook.com/marketplace/item/401908041546837/",
+    title: "4 Beds · 3 Baths · Townhouse",
+    price: 3450,
+    dateAdded: 1519211809769,
+    attributes: {
+      bedrooms: 4,
+      bathrooms: 3,
+      sqft: 1800,
+      laundry: "in-unit",
+      neighborhood: "East Vancouver",
+      parking: "1 included",
+      utilities: [],
+      airConditioning: true,
+      buildingType: "Townhouse",
+      notes: "suspiciously cheap"
+    }
+  },
+  {
+    link: "https://www.facebook.com/marketplace/item/40190401546837/",
+    title: "4 Beds · 3 Baths · Townhouse",
+    price: 3450,
+    dateAdded: 1519211809769,
+    attributes: {
+      bedrooms: 4,
+      bathrooms: 3,
+      sqft: 1800,
+      laundry: "in-unit",
+      neighborhood: "East Vancouver",
+      parking: "1 included",
+      utilities: [],
+      airConditioning: true,
+      buildingType: "Townhouse",
+      notes: "suspiciously cheap"
+    }
+  },
+  {
+    link: "https://www.facebook.com/marketplace/itm/4019080401546837/",
+    title: "4 Beds · 3 Baths · Townhouse",
+    price: 3450,
+    dateAdded: 1519211809769,
+    attributes: {
+      bedrooms: 4,
+      bathrooms: 3,
+      sqft: 1800,
+      laundry: "in-unit",
+      neighborhood: "East Vancouver",
+      parking: "1 included",
+      utilities: [],
+      airConditioning: true,
+      buildingType: "Townhouse",
+      notes: "suspiciously cheap"
+    }
   }
 ];
 
