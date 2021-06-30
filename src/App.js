@@ -19,9 +19,30 @@ function App(props) {
     updateHomes(items);
   }
 
+  function addNew() {
+    updateHomes([...homes, {
+      link: "https://www.facebook.com/markace/itm/49080401546837/",
+      title: "8 Beds · 3 Baths · Townhouse",
+      price: 3450,
+      dateAdded: 1519211809769,
+      attributes: {
+        bedrooms: 4,
+        bathrooms: 3,
+        sqft: 1800,
+        laundry: "in-unit",
+        neighborhood: "East Vancouver",
+        parking: "1 included",
+        utilities: [],
+        airConditioning: true,
+        buildingType: "Townhouse",
+        notes: "suspiciously cheap"
+      }
+    }]);
+  }
+
   return (
     <div className="app">
-      <AddButton></AddButton>
+      <AddButton addNew={addNew}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
