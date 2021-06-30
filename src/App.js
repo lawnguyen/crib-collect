@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
 import HomeCard from './components/HomeCard.js';
+import AddButton from './components/AddButton.js';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
@@ -10,7 +11,7 @@ function App(props) {
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    
+
     const items = Array.from(homes);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -20,6 +21,7 @@ function App(props) {
 
   return (
     <div className="app">
+      <AddButton></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
