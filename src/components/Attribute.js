@@ -6,7 +6,7 @@ class Attribute extends React.Component {
     return (
       <tr>
         <td>
-          <img className="icon" src={this.props.icon} />
+          <img className="icon" alt={`${this.props.name} icon`} src={this.props.icon} />
           <span className="attr-name">
             {this.props.name}
           </span>
