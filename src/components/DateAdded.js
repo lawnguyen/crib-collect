@@ -1,5 +1,5 @@
-import React from 'react';
-import './DateAdded.css';
+import React from "react";
+import "./DateAdded.css";
 
 class DateAdded extends React.Component {
   render() {
@@ -7,7 +7,7 @@ class DateAdded extends React.Component {
       <div className="date">
         Date added: {new Date(this.props.date).toDateString()}
       </div>
-    )
+    );
   }
 }
 

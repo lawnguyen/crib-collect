@@ -1,8 +1,8 @@
-import './App.css';
-import React, { useState } from 'react';
-import HomeCard from './components/HomeCard.js';
-import AddButton from './components/AddButton.js';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import "./App.css";
+import React, { useState } from "react";
+import HomeCard from "./components/HomeCard.js";
+import AddButton from "./components/AddButton.js";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -20,24 +20,27 @@ function App(props) {
   }
 
   function addNew() {
-    updateHomes([...homes, {
-      link: "https://www.facebook.com/markace/itm/49080401546837/",
-      title: "8 Beds · 3 Baths · Townhouse",
-      price: 3450,
-      dateAdded: 1519211809769,
-      attributes: {
-        bedrooms: 4,
-        bathrooms: 3,
-        sqft: 1800,
-        laundry: "in-unit",
-        neighborhood: "East Vancouver",
-        parking: "1 included",
-        utilities: [],
-        airConditioning: true,
-        buildingType: "Townhouse",
-        notes: "suspiciously cheap"
-      }
-    }]);
+    updateHomes([
+      ...homes,
+      {
+        link: "https://www.facebook.com/markace/itm/49080401546837/",
+        title: "8 Beds · 3 Baths · Townhouse",
+        price: 3450,
+        dateAdded: 1519211809769,
+        attributes: {
+          bedrooms: 4,
+          bathrooms: 3,
+          sqft: 1800,
+          laundry: "in-unit",
+          neighborhood: "East Vancouver",
+          parking: "1 included",
+          utilities: [],
+          airConditioning: true,
+          buildingType: "Townhouse",
+          notes: "suspiciously cheap",
+        },
+      },
+    ]);
   }
 
   return (
@@ -46,19 +49,30 @@ function App(props) {
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
-            <ul className="homes" {...provided.droppableProps} ref={provided.innerRef}>
+            <ul
+              className="homes"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
               {homes.map((home, index) => {
                 return (
-                  <Draggable key={home.link} draggableId={home.link} index={index}>
+                  <Draggable
+                    key={home.link}
+                    draggableId={home.link}
+                    index={index}
+                  >
                     {(provided) => (
                       <li
-                        ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                        className="home column is-one-quarter-fullhd is-half-tablet is-one-third-desktop">
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className="home column is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
+                      >
                         <HomeCard homeDetails={home}></HomeCard>
                       </li>
                     )}
                   </Draggable>
-                )
+                );
               })}
               {provided.placeholder}
             </ul>

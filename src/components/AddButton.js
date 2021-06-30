@@ -1,16 +1,19 @@
-import React from 'react';
-import './AddButton.css';
+import React from "react";
+import "./AddButton.css";
 
-function AddButton(props) {
+function AddButton({ addNew }) {
   return (
     <div className="add-button-container">
-      <button className="button is-info is-large" onClick={() => {
-        props.addNew();
-      }}>
+      <button
+        className="button is-info is-large"
+        onClick={() => {
+          addNew();
+        }}
+      >
         ADD NEW
       </button>
     </div>
-  )
+  );
 }
 
 export default AddButton;

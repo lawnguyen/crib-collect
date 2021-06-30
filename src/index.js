@@ -1,14 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'bulma/css/bulma.min.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "bulma/css/bulma.min.css";
 
 const HOMES = [
   {
     link: "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-bed-coal-harbor/7338643305.html",
-    title: "Spacious 3 Bed w/ Coal Harbor Views Move-in Incentives and Parking!",
+    title:
+      "Spacious 3 Bed w/ Coal Harbor Views Move-in Incentives and Parking!",
     price: 4000,
     dateAdded: 1519211809934,
     attributes: {
@@ -21,8 +22,8 @@ const HOMES = [
       utilities: ["Water", "Electricity", "Heat"],
       airConditioning: true,
       buildingType: "Condo",
-      notes: "building will be demolished within a year"
-    }
+      notes: "building will be demolished within a year",
+    },
   },
   {
     link: "https://www.facebook.com/marketplace/item/4019080401546837/",
@@ -39,8 +40,8 @@ const HOMES = [
       utilities: [],
       airConditioning: true,
       buildingType: "Townhouse",
-      notes: "suspiciously cheap"
-    }
+      notes: "suspiciously cheap",
+    },
   },
   {
     link: "https://www.facebook.com/marketplace/item/419080401546837/",
@@ -57,8 +58,8 @@ const HOMES = [
       utilities: [],
       airConditioning: true,
       buildingType: "Townhouse",
-      notes: "suspiciously cheap"
-    }
+      notes: "suspiciously cheap",
+    },
   },
   {
     link: "https://www.facebook.com/marketplace/item/401908041546837/",
@@ -75,8 +76,8 @@ const HOMES = [
       utilities: [],
       airConditioning: true,
       buildingType: "Townhouse",
-      notes: "suspiciously cheap"
-    }
+      notes: "suspiciously cheap",
+    },
   },
   {
     link: "https://www.facebook.com/marketplace/item/40190401546837/",
@@ -93,8 +94,8 @@ const HOMES = [
       utilities: [],
       airConditioning: true,
       buildingType: "Townhouse",
-      notes: "suspiciously cheap"
-    }
+      notes: "suspiciously cheap",
+    },
   },
   {
     link: "https://www.facebook.com/marketplace/itm/4019080401546837/",
@@ -111,16 +112,16 @@ const HOMES = [
       utilities: [],
       airConditioning: true,
       buildingType: "Townhouse",
-      notes: "suspiciously cheap"
-    }
-  }
+      notes: "suspiciously cheap",
+    },
+  },
 ];
 
 ReactDOM.render(
   <React.StrictMode>
-    <App homes={HOMES}/>
+    <App homes={HOMES} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
