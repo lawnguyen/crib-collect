@@ -1,6 +1,6 @@
 import React from "react";
 import "./CardHeader.css";
-import openLink from "../icons/openlink.svg";
+import openLink from "../../icons/openlink.svg";
 
 class CardHeader extends React.Component {
   render() {

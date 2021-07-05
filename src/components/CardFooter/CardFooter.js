@@ -1,6 +1,6 @@
 import React from "react";
-import deleteIcon from "../icons/delete.svg";
-import editIcon from "../icons/edit.svg";
+import deleteIcon from "../../icons/delete.svg";
+import editIcon from "../../icons/edit.svg";
 import "./CardFooter.css";
 
 class CardFooter extends React.Component {

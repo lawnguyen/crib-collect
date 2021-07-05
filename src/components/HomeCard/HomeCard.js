@@ -1,8 +1,8 @@
 import React from "react";
-import CardHeader from "./CardHeader";
-import CardFooter from "./CardFooter";
-import CardAttributes from "./CardAttributesList";
-import DateAdded from "./DateAdded";
+import CardHeader from "../CardHeader/CardHeader";
+import CardFooter from "../CardFooter/CardFooter";
+import CardAttributes from "../CardAttributeList/CardAttributesList";
+import DateAdded from "../DateAdded/DateAdded";
 
 class HomeCard extends React.Component {
   render() {

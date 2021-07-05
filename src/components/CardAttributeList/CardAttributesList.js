@@ -1,16 +1,16 @@
 import React from "react";
-import Attribute from "./Attribute";
+import Attribute from "../Attribute/Attribute";
 import "./CardAttributesList.css";
-import bed from "../icons/bed.svg";
-import bath from "../icons/bath.svg";
-import sqft from "../icons/sqft.svg";
-import laundry from "../icons/laundry.svg";
-import neighborhood from "../icons/neighborhood.svg";
-import parking from "../icons/parking.svg";
-import utilities from "../icons/utilities.svg";
-import building from "../icons/building.svg";
-import notes from "../icons/notes.svg";
-import aircon from "../icons/aircon.svg";
+import bed from "../../icons/bed.svg";
+import bath from "../../icons/bath.svg";
+import sqft from "../../icons/sqft.svg";
+import laundry from "../../icons/laundry.svg";
+import neighborhood from "../../icons/neighborhood.svg";
+import parking from "../../icons/parking.svg";
+import utilities from "../../icons/utilities.svg";
+import building from "../../icons/building.svg";
+import notes from "../../icons/notes.svg";
+import aircon from "../../icons/aircon.svg";
 
 class CardAttributes extends React.Component {
   render() {
