@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
-import HomeCard from "./components/HomeCard.js";
-import AddButton from "./components/AddButton.js";
+import HomeCard from "./components/HomeCard/HomeCard.js";
+import AddButton from "./components/AddButton/AddButton.js";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
@@ -19,28 +19,30 @@ function App(props) {
     updateHomes(items);
   }
 
-  function addNew() {
-    updateHomes([
-      ...homes,
-      {
-        link: "https://www.facebook.com/markace/itm/49080401546837/",
-        title: "8 Beds · 3 Baths · Townhouse",
-        price: 3450,
-        dateAdded: 1519211809769,
-        attributes: {
-          bedrooms: 4,
-          bathrooms: 3,
-          sqft: 1800,
-          laundry: "in-unit",
-          neighborhood: "East Vancouver",
-          parking: "1 included",
-          utilities: [],
-          airConditioning: true,
-          buildingType: "Townhouse",
-          notes: "suspiciously cheap",
-        },
+  function addNew(newHome) {
+    newHome = {
+      link: "https://www.facebook.com/markace/itm/49080401546837/",
+      title: "8 Beds · 3 Baths · Townhouse",
+      price: 3450,
+      dateAdded: 1519211809769,
+      attributes: {
+        bedrooms: 4,
+        bathrooms: 3,
+        sqft: 1800,
+        laundry: "in-unit",
+        neighborhood: "East Vancouver",
+        parking: "1 included",
+        utilities: [],
+        airConditioning: true,
+        buildingType: "Townhouse",
+        notes: "suspiciously cheap",
       },
-    ]);
+    };
+    if (homes.some(home => home.link === newHome.link)) {
+      console.log('already in homes list');
+    } else {
+      updateHomes([...homes, newHome]);
+    }
   }
 
   return (
