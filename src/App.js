@@ -2,12 +2,15 @@ import "./App.css";
 import React, { useState } from "react";
 import HomeCard from "./components/HomeCard/HomeCard.js";
 import AddButton from "./components/AddButton/AddButton.js";
+import Modal from "./components/Modal/Modal";
+import HomeForm from "./components/HomeForm/HomeForm";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
 function App(props) {
   const [homes, updateHomes] = useState(props.homes);
+  const [modal, showModal] = useState(false);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -19,34 +22,39 @@ function App(props) {
     updateHomes(items);
   }
 
-  function addNew(newHome) {
-    newHome = {
-      link: "https://www.facebook.com/markace/itm/49080401546837/",
-      title: "8 Beds · 3 Baths · Townhouse",
-      price: 3450,
-      dateAdded: 1519211809769,
-      attributes: {
-        bedrooms: 4,
-        bathrooms: 3,
-        sqft: 1800,
-        laundry: "in-unit",
-        neighborhood: "East Vancouver",
-        parking: "1 included",
-        utilities: [],
-        airConditioning: true,
-        buildingType: "Townhouse",
-        notes: "suspiciously cheap",
-      },
-    };
-    if (homes.some(home => home.link === newHome.link)) {
-      console.log('already in homes list');
-    } else {
-      updateHomes([...homes, newHome]);
-    }
+  function addNew() {
+    showModal(true);
+
+    // const newHome = {
+    //   link: "https://www.facebook.com/markace/itm/49080401546837/",
+    //   title: "8 Beds · 3 Baths · Townhouse",
+    //   price: 3450,
+    //   dateAdded: 1519211809769,
+    //   attributes: {
+    //     bedrooms: 4,
+    //     bathrooms: 3,
+    //     sqft: 1800,
+    //     laundry: "in-unit",
+    //     neighborhood: "East Vancouver",
+    //     parking: "1 included",
+    //     utilities: [],
+    //     airConditioning: true,
+    //     buildingType: "Townhouse",
+    //     notes: "suspiciously cheap",
+    //   },
+    // };
+    // if (homes.some(home => home.link === newHome.link)) {
+    //   console.log('already in homes list');
+    // } else {
+    //   updateHomes([...homes, newHome]);
+    // }
   }
 
   return (
     <div className="app">
+      <Modal title="Enter the home's details">
+        <HomeForm></HomeForm>
+      </Modal>
       <AddButton addNew={addNew}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
