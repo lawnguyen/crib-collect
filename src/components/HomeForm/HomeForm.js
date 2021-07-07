@@ -42,7 +42,19 @@ function HomeForm() {
       ></CheckboxField>
 
       <FieldLabel label="Air conditioning"></FieldLabel>
-      <RadioField options={['Yes', 'No']} name="hasAirCon"></RadioField>
+      <RadioField options={["Yes", "No"]} name="hasAirCon"></RadioField>
+
+      <FieldLabel label="Home type"></FieldLabel>
+      <SelectField
+        options={[
+          "N/A",
+          "Condo/Apartment",
+          "Townhouse",
+          "Duplex",
+          "House",
+          "Private Room",
+        ]}
+      ></SelectField>
     </div>
   );
 }
