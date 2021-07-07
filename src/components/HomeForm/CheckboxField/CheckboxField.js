@@ -6,7 +6,7 @@ function CheckboxField({ options }) {
     <div className="field">
       {options.map((option) => {
         return (
-          <label className="checkbox">
+          <label key={option} className="checkbox">
             <input type="checkbox" />
             {" " + option}
           </label>
