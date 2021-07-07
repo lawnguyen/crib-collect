@@ -1,7 +1,7 @@
 import React from "react";
 import "./CheckboxField.css";
 
-function CheckboxField({ label, options }) {
+function CheckboxField({ options }) {
   return (
     <div className="field">
       {options.map((option) => {

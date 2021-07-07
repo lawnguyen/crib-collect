@@ -3,6 +3,7 @@ import "./HomeForm.css";
 import TextField from "./TextField/TextField";
 import SelectField from "./SelectField/SelectField";
 import CheckboxField from "./CheckboxField/CheckboxField";
+import RadioField from "./RadioField/RadioField";
 import FieldLabel from "./FieldLabel/FieldLabel";
 
 function HomeForm() {
@@ -39,6 +40,9 @@ function HomeForm() {
       <CheckboxField
         options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
       ></CheckboxField>
+
+      <FieldLabel label="Air conditioning"></FieldLabel>
+      <RadioField options={['Yes', 'No']} name="hasAirCon"></RadioField>
     </div>
   );
 }
