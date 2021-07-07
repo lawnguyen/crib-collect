@@ -19,10 +19,10 @@ function HomeForm() {
       <FieldLabel label="URL" isRequired={true}></FieldLabel>
       <TextField placeholder="https://"></TextField>
 
-      <FieldLabel label="Number of bedrooms"></FieldLabel>
+      <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
       <SelectField options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}></SelectField>
 
-      <FieldLabel label="Number of bathrooms"></FieldLabel>
+      <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
       <SelectField options={[1, 2, 3, 4, 5, 6]}></SelectField>
 
       <FieldLabel label="Square footage (sqft)"></FieldLabel>
