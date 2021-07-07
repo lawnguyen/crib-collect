@@ -6,7 +6,7 @@ function SelectField({ options }) {
       <div className="select">
         <select>
           {options.map((option) => {
-            return <option>{option}</option>;
+            return <option key={option}>{option}</option>;
           })}
         </select>
       </div>
