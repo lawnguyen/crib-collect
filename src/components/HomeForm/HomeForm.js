@@ -3,32 +3,42 @@ import "./HomeForm.css";
 import TextField from "./TextField/TextField";
 import SelectField from "./SelectField/SelectField";
 import CheckboxField from "./CheckboxField/CheckboxField";
+import FieldLabel from "./FieldLabel/FieldLabel";
 
 function HomeForm() {
   return (
     <div>
-      <TextField
-        label="Title"
-        placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"
-      ></TextField>
+      <FieldLabel label="Title"></FieldLabel>
+      <TextField placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"></TextField>
 
-      <TextField label="Price" placeholder="$"></TextField>
+      <FieldLabel label="Price"></FieldLabel>
+      <TextField placeholder="$"></TextField>
 
-      <TextField label="URL" placeholder="https://"></TextField>
+      <FieldLabel label="URL"></FieldLabel>
+      <TextField placeholder="https://"></TextField>
 
-      <SelectField label="Number of bedrooms" options={[0,1,2,3,4,5,6,7,8]}></SelectField>
+      <FieldLabel label="Number of bedrooms"></FieldLabel>
+      <SelectField options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}></SelectField>
 
-      <SelectField label="Number of bathrooms" options={[1,2,3,4,5,6]}></SelectField>
+      <FieldLabel label="Number of bathrooms"></FieldLabel>
+      <SelectField options={[1, 2, 3, 4, 5, 6]}></SelectField>
 
-      <TextField label="Square footage (sqft)" placeholder="e.g. 1000"></TextField>
+      <FieldLabel label="Square footage (sqft)"></FieldLabel>
+      <TextField placeholder="e.g. 1000"></TextField>
 
-      <TextField label="Laundry (washer/dryer)" placeholder="e.g. 'in-unit'"></TextField>
+      <FieldLabel label="Laundry (washer/dryer)"></FieldLabel>
+      <TextField placeholder="e.g. 'in-unit'"></TextField>
 
-      <TextField label="Area/Community" placeholder="e.g. 'Mount Pleasant'"></TextField>
+      <FieldLabel label="Area/Community"></FieldLabel>
+      <TextField placeholder="e.g. 'Mount Pleasant'"></TextField>
 
-      <TextField label="Parking" placeholder="e.g. '1 included, rent 1 for $100/month'"></TextField>
+      <FieldLabel label="Parking"></FieldLabel>
+      <TextField placeholder="e.g. '1 included, rent 1 for $100/month'"></TextField>
 
-      <CheckboxField label="Utilities" options={['Water', 'Electricity', 'Gas', 'Internet', 'Cable']}></CheckboxField>
+      <FieldLabel label="Utilities"></FieldLabel>
+      <CheckboxField
+        options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
+      ></CheckboxField>
     </div>
   );
 }

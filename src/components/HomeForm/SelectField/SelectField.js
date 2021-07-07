@@ -1,10 +1,8 @@
 import React from "react";
-import FieldLabel from "../FieldLabel/FieldLabel";
 
-function SelectField({ options, label }) {
+function SelectField({ options }) {
   return (
     <div className="field">
-      <FieldLabel label={label}></FieldLabel>
       <div className="select">
         <select>
           {options.map((option) => {
