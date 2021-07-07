@@ -10,13 +10,13 @@ import FieldLabel from "./FieldLabel/FieldLabel";
 function HomeForm() {
   return (
     <div>
-      <FieldLabel label="Title"></FieldLabel>
+      <FieldLabel label="Title" isRequired={true}></FieldLabel>
       <TextField placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"></TextField>
 
-      <FieldLabel label="Price"></FieldLabel>
+      <FieldLabel label="Price" isRequired={true}></FieldLabel>
       <TextField placeholder="$"></TextField>
 
-      <FieldLabel label="URL"></FieldLabel>
+      <FieldLabel label="URL" isRequired={true}></FieldLabel>
       <TextField placeholder="https://"></TextField>
 
       <FieldLabel label="Number of bedrooms"></FieldLabel>
