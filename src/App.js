@@ -10,6 +10,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function App(props) {
   const [homes, updateHomes] = useState(props.homes);
+  // eslint-disable-next-line
   const [modal, showModal] = useState(false);
 
   function handleOnDragEnd(result) {
