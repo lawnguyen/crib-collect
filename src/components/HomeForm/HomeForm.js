@@ -4,6 +4,7 @@ import TextField from "./TextField/TextField";
 import SelectField from "./SelectField/SelectField";
 import CheckboxField from "./CheckboxField/CheckboxField";
 import RadioField from "./RadioField/RadioField";
+import TextareaField from "./TextareaField/TextareaField";
 import FieldLabel from "./FieldLabel/FieldLabel";
 
 function HomeForm() {
@@ -55,6 +56,9 @@ function HomeForm() {
           "Private Room",
         ]}
       ></SelectField>
+
+      <FieldLabel label="Notes"></FieldLabel>
+      <TextareaField placeholder="Add further description"></TextareaField>
     </div>
   );
 }
