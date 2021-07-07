@@ -1,13 +1,13 @@
 import React from "react";
 import "./RadioField.css";
 
-function CheckboxField({ options, name }) {
+function RadioField({ options, name }) {
   return (
     <div className="field">
       <div className="control">
         {options.map((option) => {
           return (
-            <label className="radio">
+            <label key={option} className="radio">
               <input type="radio" name={name} />
               {" " + option}
             </label>
@@ -18,4 +18,4 @@ function CheckboxField({ options, name }) {
   );
 }
 
-export default CheckboxField;
+export default RadioField;
