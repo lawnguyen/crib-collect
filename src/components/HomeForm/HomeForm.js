@@ -33,14 +33,25 @@ class HomeForm extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = ["checkbox", "radio"].includes(target.type)
+      ? target.parentElement.textContent.trim()
+      : target.value;
     const name = target.name;
 
     console.log("name: " + name + " value: " + value + " type: " + target.type);
 
-    this.setState({
-      [name]: value,
-    });
+    if (target.type === "checkbox") {
+      // Add value to state array if checked, remove otherwise
+      this.setState({
+        [name]: target.checked
+          ? [...this.state[name], value]
+          : this.state[name].filter((s) => s !== value),
+      });
+    } else {
+      this.setState({
+        [name]: value,
+      });
+    }
   }
 
   render() {
