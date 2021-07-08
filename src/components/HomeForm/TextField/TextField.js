@@ -1,13 +1,13 @@
 import React from "react";
 
-function TextField({ placeholder, onChange, name }) {
+function TextField({ placeholder, onChange, name, type }) {
   return (
     <div className="field">
       <div className="control">
         <input
           name={name}
           className="input"
-          type="text"
+          type={type}
           placeholder={placeholder}
           onChange={onChange}
         />

@@ -43,6 +43,10 @@ class HomeForm extends React.Component {
     });
   }
 
+  isAttribute(value) {
+    return value.split('.')[0] === 'attributes';
+  }
+
   render() {
     return (
       <div>
@@ -50,6 +54,7 @@ class HomeForm extends React.Component {
         <TextField
           name="title"
           onChange={this.handleInputChange}
+          type="text"
           placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"
         ></TextField>
 
@@ -57,6 +62,7 @@ class HomeForm extends React.Component {
         <TextField
           name="price"
           onChange={this.handleInputChange}
+          type="number"
           placeholder="$"
         ></TextField>
 
@@ -64,6 +70,7 @@ class HomeForm extends React.Component {
         <TextField
           name="link"
           onChange={this.handleInputChange}
+          type="text"
           placeholder="https://"
         ></TextField>
 
@@ -85,6 +92,7 @@ class HomeForm extends React.Component {
         <TextField
           name="attributes.sqft"
           onChange={this.handleInputChange}
+          type="number"
           placeholder="e.g. 1000"
         ></TextField>
 
@@ -92,6 +100,7 @@ class HomeForm extends React.Component {
         <TextField
           name="attributes.laundry"
           onChange={this.handleInputChange}
+          type="text"
           placeholder="e.g. 'in-unit'"
         ></TextField>
 
@@ -99,6 +108,7 @@ class HomeForm extends React.Component {
         <TextField
           name="attributes.neighborhood"
           onChange={this.handleInputChange}
+          type="text"
           placeholder="e.g. 'Mount Pleasant'"
         ></TextField>
 
@@ -106,6 +116,7 @@ class HomeForm extends React.Component {
         <TextField
           name="attributes.parking"
           onChange={this.handleInputChange}
+          type="text"
           placeholder="e.g. '1 included, rent 1 for $100/month'"
         ></TextField>
 
