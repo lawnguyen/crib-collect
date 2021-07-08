@@ -74,14 +74,14 @@ class HomeForm extends React.Component {
         <SelectField
           name="bedrooms"
           onChange={this.handleInputChange}
-          options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
+          options={["", "0", "1", "2", "3", "4", "5", "6", "7", "8"]}
         ></SelectField>
 
         <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
         <SelectField
           name="bathrooms"
           onChange={this.handleInputChange}
-          options={[1, 2, 3, 4, 5, 6]}
+          options={["", "1", "2", "3", "4", "5", "6"]}
         ></SelectField>
 
         <FieldLabel label="Square footage (sqft)"></FieldLabel>
@@ -135,7 +135,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           name="buildingType"
           options={[
-            "N/A",
+            "",
             "Condo/Apartment",
             "Townhouse",
             "Duplex",
