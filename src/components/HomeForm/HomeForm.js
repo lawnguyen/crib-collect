@@ -72,6 +72,7 @@ class HomeForm extends React.Component {
           name="price"
           onChange={this.handleInputChange}
           type="number"
+          step="100"
           placeholder="$"
         ></TextField>
 
@@ -102,6 +103,7 @@ class HomeForm extends React.Component {
           name="sqft"
           onChange={this.handleInputChange}
           type="number"
+          step="100"
           placeholder="e.g. 1000"
         ></TextField>
 
