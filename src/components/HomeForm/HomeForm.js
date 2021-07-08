@@ -6,6 +6,7 @@ import CheckboxField from "./CheckboxField/CheckboxField";
 import RadioField from "./RadioField/RadioField";
 import TextareaField from "./TextareaField/TextareaField";
 import FieldLabel from "./FieldLabel/FieldLabel";
+import SubmitButton from "./SubmitButton/SubmitButton";
 
 function HomeForm() {
   return (
@@ -59,6 +60,8 @@ function HomeForm() {
 
       <FieldLabel label="Notes"></FieldLabel>
       <TextareaField placeholder="Add further description"></TextareaField>
+
+      <SubmitButton buttonText="Submit"></SubmitButton>
     </div>
   );
 }
