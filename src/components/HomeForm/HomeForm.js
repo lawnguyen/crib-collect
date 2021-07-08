@@ -16,18 +16,16 @@ class HomeForm extends React.Component {
       title: "",
       price: null,
       dateAdded: null,
-      attributes: {
-        bedrooms: null,
-        bathrooms: null,
-        sqft: null,
-        laundry: "",
-        neighborhood: "",
-        parking: "",
-        utilities: [],
-        airConditioning: null,
-        buildingType: "",
-        notes: "",
-      },
+      bedrooms: null,
+      bathrooms: null,
+      sqft: null,
+      laundry: "",
+      neighborhood: "",
+      parking: "",
+      utilities: [],
+      airConditioning: null,
+      buildingType: "",
+      notes: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,14 +35,12 @@ class HomeForm extends React.Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+
     console.log("name: " + name + " value: " + value + " type: " + target.type);
+
     this.setState({
       [name]: value,
     });
-  }
-
-  isAttribute(value) {
-    return value.split('.')[0] === 'attributes';
   }
 
   render() {
@@ -76,21 +72,21 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
         <SelectField
-          name="attributes.bedroom"
+          name="bedroom"
           onChange={this.handleInputChange}
           options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
         ></SelectField>
 
         <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
         <SelectField
-          name="attributes.bathrooms"
+          name="bathrooms"
           onChange={this.handleInputChange}
           options={[1, 2, 3, 4, 5, 6]}
         ></SelectField>
 
         <FieldLabel label="Square footage (sqft)"></FieldLabel>
         <TextField
-          name="attributes.sqft"
+          name="sqft"
           onChange={this.handleInputChange}
           type="number"
           placeholder="e.g. 1000"
@@ -98,7 +94,7 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Laundry (washer/dryer)"></FieldLabel>
         <TextField
-          name="attributes.laundry"
+          name="laundry"
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. 'in-unit'"
@@ -106,7 +102,7 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Area/Community"></FieldLabel>
         <TextField
-          name="attributes.neighborhood"
+          name="neighborhood"
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. 'Mount Pleasant'"
@@ -114,7 +110,7 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Parking"></FieldLabel>
         <TextField
-          name="attributes.parking"
+          name="parking"
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. '1 included, rent 1 for $100/month'"
@@ -123,7 +119,7 @@ class HomeForm extends React.Component {
         <FieldLabel label="Utilities"></FieldLabel>
         <CheckboxField
           onChange={this.handleInputChange}
-          name="attributes.utilities"
+          name="utilities"
           options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
         ></CheckboxField>
 
@@ -131,13 +127,13 @@ class HomeForm extends React.Component {
         <RadioField
           onChange={this.handleInputChange}
           options={["N/A", "Yes", "No"]}
-          name="attributes.airConditioning"
+          name="airConditioning"
         ></RadioField>
 
         <FieldLabel label="Home type"></FieldLabel>
         <SelectField
           onChange={this.handleInputChange}
-          name="attributes.buildingType"
+          name="buildingType"
           options={[
             "N/A",
             "Condo/Apartment",
@@ -150,7 +146,7 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Notes"></FieldLabel>
         <TextareaField
-          name="attributes.notes"
+          name="notes"
           onChange={this.handleInputChange}
           placeholder="Add further description"
         ></TextareaField>
