@@ -72,7 +72,7 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
         <SelectField
-          name="bedroom"
+          name="bedrooms"
           onChange={this.handleInputChange}
           options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
         ></SelectField>
