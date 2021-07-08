@@ -111,13 +111,16 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Utilities"></FieldLabel>
         <CheckboxField
+          onChange={this.handleInputChange}
+          name="attributes.utilities"
           options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
         ></CheckboxField>
 
         <FieldLabel label="Air conditioning"></FieldLabel>
         <RadioField
+          onChange={this.handleInputChange}
           options={["N/A", "Yes", "No"]}
-          name="hasAirCon"
+          name="attributes.airConditioning"
         ></RadioField>
 
         <FieldLabel label="Home type"></FieldLabel>
