@@ -38,8 +38,6 @@ class HomeForm extends React.Component {
       : target.value;
     const name = target.name;
 
-    console.log("name: " + name + " value: " + value + " type: " + target.type);
-
     if (target.type === "checkbox") {
       // Add value to state array if checked, remove otherwise
       this.setState({
