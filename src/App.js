@@ -25,41 +25,43 @@ function App(props) {
 
   function onOpenModal() {
     updateModalState(true);
-
-    // const newHome = {
-    //   link: "https://www.facebook.com/markace/itm/49080401546837/",
-    //   title: "8 Beds · 3 Baths · Townhouse",
-    //   price: 3450,
-    //   dateAdded: 1519211809769,
-    //   attributes: {
-    //     bedrooms: 4,
-    //     bathrooms: 3,
-    //     sqft: 1800,
-    //     laundry: "in-unit",
-    //     neighborhood: "East Vancouver",
-    //     parking: "1 included",
-    //     utilities: [],
-    //     airConditioning: true,
-    //     buildingType: "Townhouse",
-    //     notes: "suspiciously cheap",
-    //   },
-    // };
-    // if (homes.some(home => home.link === newHome.link)) {
-    //   console.log('already in homes list');
-    // } else {
-    //   updateHomes([...homes, newHome]);
-    // }
   }
 
   function onCloseModal() {
     updateModalState(false);
   }
 
+  function addNewHome(home) {
+    const newHome = {
+      link: "https://www.facebook.com/markace/itm/49080401546837/",
+      title: "8 Beds · 3 Baths · Townhouse",
+      price: 3450,
+      dateAdded: 1519211809769,
+      attributes: {
+        bedrooms: 4,
+        bathrooms: 3,
+        sqft: 1800,
+        laundry: "in-unit",
+        neighborhood: "East Vancouver",
+        parking: "1 included",
+        utilities: [],
+        airConditioning: true,
+        buildingType: "Townhouse",
+        notes: "suspiciously cheap",
+      },
+    };
+    if (homes.some((home) => home.link === newHome.link)) {
+      console.log("already in homes list");
+    } else {
+      updateHomes([...homes, newHome]);
+    }
+  }
+
   return (
     <div className="app">
       {modalState ? (
         <Modal onCloseModal={onCloseModal} title="Enter the home's details">
-          <HomeForm></HomeForm>
+          <HomeForm addNewHome={addNewHome}></HomeForm>
         </Modal>
       ) : null}
       <AddButton addNew={onOpenModal}></AddButton>

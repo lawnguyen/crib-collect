@@ -8,62 +8,129 @@ import TextareaField from "./TextareaField/TextareaField";
 import FieldLabel from "./FieldLabel/FieldLabel";
 import SubmitButton from "./SubmitButton/SubmitButton";
 
-function HomeForm() {
-  return (
-    <div>
-      <FieldLabel label="Title" isRequired={true}></FieldLabel>
-      <TextField placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"></TextField>
+class HomeForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      link: "",
+      title: "",
+      price: null,
+      dateAdded: null,
+      attributes: {
+        bedrooms: null,
+        bathrooms: null,
+        sqft: null,
+        laundry: "",
+        neighborhood: "",
+        parking: "",
+        utilities: [],
+        airConditioning: null,
+        buildingType: "",
+        notes: "",
+      },
+    };
 
-      <FieldLabel label="Price" isRequired={true}></FieldLabel>
-      <TextField placeholder="$"></TextField>
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
-      <FieldLabel label="URL" isRequired={true}></FieldLabel>
-      <TextField placeholder="https://"></TextField>
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    console.log("name: " + name + " value: " + value +" type: "+target.type);
+    this.setState({
+      [name]: value,
+    });
+  }
 
-      <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
-      <SelectField options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}></SelectField>
+  render() {
+    return (
+      <div>
+        <FieldLabel label="Title" isRequired={true}></FieldLabel>
+        <TextField
+          name="title"
+          onChange={this.handleInputChange}
+          placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"
+        ></TextField>
 
-      <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
-      <SelectField options={[1, 2, 3, 4, 5, 6]}></SelectField>
+        <FieldLabel label="Price" isRequired={true}></FieldLabel>
+        <TextField
+          name="price"
+          onChange={this.handleInputChange}
+          placeholder="$"
+        ></TextField>
 
-      <FieldLabel label="Square footage (sqft)"></FieldLabel>
-      <TextField placeholder="e.g. 1000"></TextField>
+        <FieldLabel label="URL" isRequired={true}></FieldLabel>
+        <TextField
+          name="link"
+          onChange={this.handleInputChange}
+          placeholder="https://"
+        ></TextField>
 
-      <FieldLabel label="Laundry (washer/dryer)"></FieldLabel>
-      <TextField placeholder="e.g. 'in-unit'"></TextField>
+        <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
+        <SelectField options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}></SelectField>
 
-      <FieldLabel label="Area/Community"></FieldLabel>
-      <TextField placeholder="e.g. 'Mount Pleasant'"></TextField>
+        <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
+        <SelectField options={[1, 2, 3, 4, 5, 6]}></SelectField>
 
-      <FieldLabel label="Parking"></FieldLabel>
-      <TextField placeholder="e.g. '1 included, rent 1 for $100/month'"></TextField>
+        <FieldLabel label="Square footage (sqft)"></FieldLabel>
+        <TextField
+          name="attributes.sqft"
+          onChange={this.handleInputChange}
+          placeholder="e.g. 1000"
+        ></TextField>
 
-      <FieldLabel label="Utilities"></FieldLabel>
-      <CheckboxField
-        options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
-      ></CheckboxField>
+        <FieldLabel label="Laundry (washer/dryer)"></FieldLabel>
+        <TextField
+          name="attributes.laundry"
+          onChange={this.handleInputChange}
+          placeholder="e.g. 'in-unit'"
+        ></TextField>
 
-      <FieldLabel label="Air conditioning"></FieldLabel>
-      <RadioField options={["N/A", "Yes", "No"]} name="hasAirCon"></RadioField>
+        <FieldLabel label="Area/Community"></FieldLabel>
+        <TextField
+          name="attributes.neighborhood"
+          onChange={this.handleInputChange}
+          placeholder="e.g. 'Mount Pleasant'"
+        ></TextField>
 
-      <FieldLabel label="Home type"></FieldLabel>
-      <SelectField
-        options={[
-          "N/A",
-          "Condo/Apartment",
-          "Townhouse",
-          "Duplex",
-          "House",
-          "Private Room",
-        ]}
-      ></SelectField>
+        <FieldLabel label="Parking"></FieldLabel>
+        <TextField
+          name="attributes.parking"
+          onChange={this.handleInputChange}
+          placeholder="e.g. '1 included, rent 1 for $100/month'"
+        ></TextField>
 
-      <FieldLabel label="Notes"></FieldLabel>
-      <TextareaField placeholder="Add further description"></TextareaField>
+        <FieldLabel label="Utilities"></FieldLabel>
+        <CheckboxField
+          options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
+        ></CheckboxField>
 
-      <SubmitButton buttonText="Submit"></SubmitButton>
-    </div>
-  );
+        <FieldLabel label="Air conditioning"></FieldLabel>
+        <RadioField
+          options={["N/A", "Yes", "No"]}
+          name="hasAirCon"
+        ></RadioField>
+
+        <FieldLabel label="Home type"></FieldLabel>
+        <SelectField
+          options={[
+            "N/A",
+            "Condo/Apartment",
+            "Townhouse",
+            "Duplex",
+            "House",
+            "Private Room",
+          ]}
+        ></SelectField>
+
+        <FieldLabel label="Notes"></FieldLabel>
+        <TextareaField name="attributes.notes" onChange={this.handleInputChange} placeholder="Add further description"></TextareaField>
+
+        <SubmitButton buttonText="Submit"></SubmitButton>
+      </div>
+    );
+  }
 }
 
 export default HomeForm;
