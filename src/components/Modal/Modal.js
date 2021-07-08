@@ -1,7 +1,7 @@
 import React from "react";
 import "./Modal.css";
 
-function Modal({ title, children }) {
+function Modal({ title, children, onCloseModal }) {
   return (
     <div className="modal is-active">
       <div className="modal-background"></div>
@@ -9,14 +9,14 @@ function Modal({ title, children }) {
         <article className="message is-info">
           <div className="message-header">
             <p>{title}</p>
-            <button className="delete" aria-label="delete"></button>
+            <button onClick={onCloseModal} className="delete" aria-label="delete"></button>
           </div>
           <div className="message-body">
             {children}
           </div>
         </article>
       </div>
-      <button className="modal-close is-large" aria-label="close"></button>
+      <button onClick={onCloseModal} className="modal-close is-large" aria-label="close"></button>
     </div>
   );
 }

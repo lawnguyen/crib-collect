@@ -11,7 +11,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 function App(props) {
   const [homes, updateHomes] = useState(props.homes);
   // eslint-disable-next-line
-  const [modal, showModal] = useState(false);
+  const [modalState, updateModalState] = useState(false);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -23,8 +23,8 @@ function App(props) {
     updateHomes(items);
   }
 
-  function addNew() {
-    showModal(true);
+  function onOpenModal() {
+    updateModalState(true);
 
     // const newHome = {
     //   link: "https://www.facebook.com/markace/itm/49080401546837/",
@@ -51,12 +51,18 @@ function App(props) {
     // }
   }
 
+  function onCloseModal() {
+    updateModalState(false);
+  }
+
   return (
     <div className="app">
-      <Modal title="Enter the home's details">
-        <HomeForm></HomeForm>
-      </Modal>
-      <AddButton addNew={addNew}></AddButton>
+      {modalState ? (
+        <Modal onCloseModal={onCloseModal} title="Enter the home's details">
+          <HomeForm></HomeForm>
+        </Modal>
+      ) : null}
+      <AddButton addNew={onOpenModal}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
