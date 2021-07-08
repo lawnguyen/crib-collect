@@ -37,7 +37,7 @@ class HomeForm extends React.Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    console.log("name: " + name + " value: " + value +" type: "+target.type);
+    console.log("name: " + name + " value: " + value + " type: " + target.type);
     this.setState({
       [name]: value,
     });
@@ -68,10 +68,18 @@ class HomeForm extends React.Component {
         ></TextField>
 
         <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
-        <SelectField options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}></SelectField>
+        <SelectField
+          name="attributes.bedroom"
+          onChange={this.handleInputChange}
+          options={[0, 1, 2, 3, 4, 5, 6, 7, 8]}
+        ></SelectField>
 
         <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
-        <SelectField options={[1, 2, 3, 4, 5, 6]}></SelectField>
+        <SelectField
+          name="attributes.bathrooms"
+          onChange={this.handleInputChange}
+          options={[1, 2, 3, 4, 5, 6]}
+        ></SelectField>
 
         <FieldLabel label="Square footage (sqft)"></FieldLabel>
         <TextField
@@ -114,6 +122,8 @@ class HomeForm extends React.Component {
 
         <FieldLabel label="Home type"></FieldLabel>
         <SelectField
+          onChange={this.handleInputChange}
+          name="attributes.buildingType"
           options={[
             "N/A",
             "Condo/Apartment",
@@ -125,7 +135,11 @@ class HomeForm extends React.Component {
         ></SelectField>
 
         <FieldLabel label="Notes"></FieldLabel>
-        <TextareaField name="attributes.notes" onChange={this.handleInputChange} placeholder="Add further description"></TextareaField>
+        <TextareaField
+          name="attributes.notes"
+          onChange={this.handleInputChange}
+          placeholder="Add further description"
+        ></TextareaField>
 
         <SubmitButton buttonText="Submit"></SubmitButton>
       </div>
