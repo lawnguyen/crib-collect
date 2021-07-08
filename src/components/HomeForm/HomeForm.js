@@ -52,6 +52,10 @@ class HomeForm extends React.Component {
     }
   }
 
+  onSubmit() {
+    // TODO: Store in DB and display new HomeCard
+  }
+
   render() {
     return (
       <div>
@@ -160,7 +164,7 @@ class HomeForm extends React.Component {
           placeholder="Add further description"
         ></TextareaField>
 
-        <SubmitButton buttonText="Submit"></SubmitButton>
+        <SubmitButton onSubmit={this.onSubmit} buttonText="Submit"></SubmitButton>
       </div>
     );
   }
