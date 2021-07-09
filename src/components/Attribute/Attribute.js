@@ -3,6 +3,7 @@ import "./Attribute.css";
 
 class Attribute extends React.Component {
   render() {
+    const value = this.props.value;
     return (
       <tr>
         <td>
@@ -13,7 +14,7 @@ class Attribute extends React.Component {
           />
           <span className="attr-name">{this.props.name}</span>
         </td>
-        <td>{this.props.value.toString()}</td>
+        <td>{Array.isArray(value) ? value.join(', ') : value.toString()}</td>
       </tr>
     );
   }
