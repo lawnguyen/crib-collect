@@ -58,9 +58,26 @@ class HomeForm extends React.Component {
   onSubmit() {
     // TODO: check required fields are valid
     // TODO: display new HomeCard
+    const homeModel = {
+      link: this.state.link,
+      title: this.state.title,
+      price: this.state.price,
+      attributes: {
+        bedrooms: this.state.bedrooms,
+        bathrooms: this.state.bathrooms,
+        sqft: this.state.sqft,
+        laundry: this.state.laundry,
+        neighborhood: this.state.neighborhood,
+        parking: this.state.parking,
+        utilities: this.state.utilities,
+        airConditioning: this.state.airConditioning,
+        buildingType: this.state.buildingType,
+        notes: this.state.notes,
+      },
+    };
     firestore
       .collection("homes")
-      .add(this.state)
+      .add(homeModel)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
         docRef.update({
