@@ -57,7 +57,7 @@ class HomeForm extends React.Component {
 
   onSubmit() {
     // TODO: check required fields are valid
-    // TODO: display new HomeCard
+    // TODO: don't add duplicates to the database
     const homeModel = {
       link: this.state.link,
       title: this.state.title,
@@ -83,6 +83,8 @@ class HomeForm extends React.Component {
         docRef.update({
           dateAdded: firebase.firestore.FieldValue.serverTimestamp(),
         });
+
+        this.props.addNewHome(homeModel);
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
