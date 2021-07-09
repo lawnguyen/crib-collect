@@ -7,6 +7,8 @@ import RadioField from "./RadioField/RadioField";
 import TextareaField from "./TextareaField/TextareaField";
 import FieldLabel from "./FieldLabel/FieldLabel";
 import SubmitButton from "./SubmitButton/SubmitButton";
+import { firestore } from "../../firebase";
+import firebase from "firebase/app";
 
 class HomeForm extends React.Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class HomeForm extends React.Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -53,7 +56,20 @@ class HomeForm extends React.Component {
   }
 
   onSubmit() {
-    // TODO: Store in DB and display new HomeCard
+    // TODO: check required fields are valid
+    // TODO: display new HomeCard
+    firestore
+      .collection("homes")
+      .add(this.state)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        docRef.update({
+          dateAdded: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   }
 
   render() {
@@ -166,7 +182,10 @@ class HomeForm extends React.Component {
           placeholder="Add further description"
         ></TextareaField>
 
-        <SubmitButton onSubmit={this.onSubmit} buttonText="Submit"></SubmitButton>
+        <SubmitButton
+          onSubmit={this.onSubmit}
+          buttonText="Submit"
+        ></SubmitButton>
       </div>
     );
   }
