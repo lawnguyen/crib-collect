@@ -14,7 +14,7 @@ class Attribute extends React.Component {
           />
           <span className="attr-name">{this.props.name}</span>
         </td>
-        <td>{Array.isArray(value) ? value.join(', ') : value.toString()}</td>
+        <td>{Array.isArray(value) ? value.join(', ') : (value ? value.toString() : null)}</td>
       </tr>
     );
   }

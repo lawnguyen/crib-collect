@@ -14,20 +14,20 @@ class HomeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      link: "",
-      title: "",
+      link: null,
+      title: null,
       price: null,
       dateAdded: null,
       bedrooms: null,
       bathrooms: null,
       sqft: null,
-      laundry: "",
-      neighborhood: "",
-      parking: "",
+      laundry: null,
+      neighborhood: null,
+      parking: null,
       utilities: [],
       airConditioning: null,
-      buildingType: "",
-      notes: "",
+      buildingType: null,
+      notes: null,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
