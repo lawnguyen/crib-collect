@@ -56,6 +56,9 @@ class HomeForm extends React.Component {
   onSubmit() {
     // TODO: check required fields are valid
     // TODO: don't add duplicates to the database
+    if (!this.isValid()) {
+      return;
+    }
     const homeModel = {
       link: this.state.link,
       title: this.state.title,
@@ -90,6 +93,25 @@ class HomeForm extends React.Component {
       .catch((error) => {
         console.error("Error adding document: ", error);
       });
+  }
+
+  isValid() {
+    if (!this.state.link) {
+      return false;
+    }
+    if (!this.state.title) {
+      return false;
+    }
+    if (!this.state.price) {
+      return false;
+    }
+    if (!this.state.bedrooms) {
+      return false;
+    }
+    if (!this.state.bathrooms) {
+      return false;
+    }
+    return true;
   }
 
   render() {
