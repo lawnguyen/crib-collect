@@ -7,6 +7,7 @@ import RadioField from "./RadioField/RadioField";
 import TextareaField from "./TextareaField/TextareaField";
 import FieldLabel from "./FieldLabel/FieldLabel";
 import SubmitButton from "./SubmitButton/SubmitButton";
+import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import { firestore } from "../../firebase";
 
 class HomeForm extends React.Component {
@@ -26,6 +27,7 @@ class HomeForm extends React.Component {
       airConditioning: "N/A",
       buildingType: "",
       notes: "",
+      errorMessage: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -97,20 +99,26 @@ class HomeForm extends React.Component {
 
   isValid() {
     if (!this.state.link) {
+      this.setState({ errorMessage: "Please enter a valid URL" });
       return false;
     }
     if (!this.state.title) {
+      this.setState({ errorMessage: "Please enter a title" });
       return false;
     }
     if (!this.state.price) {
+      this.setState({ errorMessage: "Please enter a price" });
       return false;
     }
     if (!this.state.bedrooms) {
+      this.setState({ errorMessage: "Please enter the amount of bedrooms" });
       return false;
     }
     if (!this.state.bathrooms) {
+      this.setState({ errorMessage: "Please enter the amount of bathrooms" });
       return false;
     }
+    this.setState({ errorMessage: "" });
     return true;
   }
 
@@ -237,10 +245,13 @@ class HomeForm extends React.Component {
           value={this.state.notes}
         ></TextareaField>
 
-        <SubmitButton
-          onSubmit={this.onSubmit}
-          buttonText="Submit"
-        ></SubmitButton>
+        <div className="form-submit">
+          <ErrorMessage message={this.state.errorMessage}></ErrorMessage>
+          <SubmitButton
+            onSubmit={this.onSubmit}
+            buttonText="Submit"
+          ></SubmitButton>
+        </div>
       </div>
     );
   }
