@@ -6,14 +6,9 @@ function RadioField({ options, name, onChange, selected }) {
     <div className="field">
       <div className="control">
         {options.map((option) => {
-          return selected === option ? (
+          return (
             <label key={option} className="radio">
-              <input checked onChange={onChange} type="radio" name={name} />
-              {" " + option}
-            </label>
-          ) : (
-            <label key={option} className="radio">
-              <input onChange={onChange} type="radio" name={name} />
+              <input checked={selected === option} onChange={onChange} type="radio" name={name} />
               {" " + option}
             </label>
           );

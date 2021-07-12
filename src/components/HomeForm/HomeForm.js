@@ -8,26 +8,24 @@ import TextareaField from "./TextareaField/TextareaField";
 import FieldLabel from "./FieldLabel/FieldLabel";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import { firestore } from "../../firebase";
-import firebase from "firebase/app";
 
 class HomeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      link: null,
-      title: null,
-      price: null,
-      dateAdded: null,
-      bedrooms: null,
-      bathrooms: null,
-      sqft: null,
-      laundry: null,
-      neighborhood: null,
-      parking: null,
+      link: "",
+      title: "",
+      price: "",
+      bedrooms: "",
+      bathrooms: "",
+      sqft: "",
+      laundry: "",
+      neighborhood: "",
+      parking: "",
       utilities: [],
-      airConditioning: null,
-      buildingType: null,
-      notes: null,
+      airConditioning: "N/A",
+      buildingType: "",
+      notes: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -83,7 +81,7 @@ class HomeForm extends React.Component {
 
         const dateAdded = Date.now();
         docRef.update({
-          dateAdded: dateAdded
+          dateAdded: dateAdded,
         });
 
         homeModel.dateAdded = dateAdded;
@@ -103,6 +101,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"
+          value={this.state.title}
         ></TextField>
 
         <FieldLabel label="Price" isRequired={true}></FieldLabel>
@@ -112,6 +111,7 @@ class HomeForm extends React.Component {
           type="number"
           step="100"
           placeholder="$"
+          value={this.state.price}
         ></TextField>
 
         <FieldLabel label="URL" isRequired={true}></FieldLabel>
@@ -120,6 +120,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           type="text"
           placeholder="https://"
+          value={this.state.link}
         ></TextField>
 
         <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
@@ -127,6 +128,7 @@ class HomeForm extends React.Component {
           name="bedrooms"
           onChange={this.handleInputChange}
           options={["", "0", "1", "2", "3", "4", "5", "6", "7", "8"]}
+          selected={this.state.bedrooms}
         ></SelectField>
 
         <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
@@ -134,6 +136,7 @@ class HomeForm extends React.Component {
           name="bathrooms"
           onChange={this.handleInputChange}
           options={["", "1", "2", "3", "4", "5", "6"]}
+          selected={this.state.bathrooms}
         ></SelectField>
 
         <FieldLabel label="Square footage (sqft)"></FieldLabel>
@@ -143,6 +146,7 @@ class HomeForm extends React.Component {
           type="number"
           step="100"
           placeholder="e.g. 1000"
+          value={this.state.sqft}
         ></TextField>
 
         <FieldLabel label="Laundry (washer/dryer)"></FieldLabel>
@@ -151,6 +155,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. 'in-unit'"
+          value={this.state.laundry}
         ></TextField>
 
         <FieldLabel label="Area/Community"></FieldLabel>
@@ -159,6 +164,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. 'Mount Pleasant'"
+          value={this.state.neighborhood}
         ></TextField>
 
         <FieldLabel label="Parking"></FieldLabel>
@@ -167,6 +173,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           type="text"
           placeholder="e.g. '1 included, rent 1 for $100/month'"
+          value={this.state.parking}
         ></TextField>
 
         <FieldLabel label="Utilities"></FieldLabel>
@@ -174,6 +181,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           name="utilities"
           options={["Water", "Electricity", "Gas", "Internet", "Cable"]}
+          selectedList={this.state.utilities}
         ></CheckboxField>
 
         <FieldLabel label="Air conditioning"></FieldLabel>
@@ -181,6 +189,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           options={["N/A", "Yes", "No"]}
           name="airConditioning"
+          selected={this.state.airConditioning}
         ></RadioField>
 
         <FieldLabel label="Home type"></FieldLabel>
@@ -195,6 +204,7 @@ class HomeForm extends React.Component {
             "House",
             "Private Room",
           ]}
+          selected={this.state.buildingType}
         ></SelectField>
 
         <FieldLabel label="Notes"></FieldLabel>
@@ -202,6 +212,7 @@ class HomeForm extends React.Component {
           name="notes"
           onChange={this.handleInputChange}
           placeholder="Add further description"
+          value={this.state.notes}
         ></TextareaField>
 
         <SubmitButton

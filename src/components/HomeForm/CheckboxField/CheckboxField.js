@@ -5,14 +5,14 @@ function CheckboxField({ options, onChange, name, selectedList }) {
   return (
     <div className="field">
       {options.map((option) => {
-        return selectedList && selectedList.includes(option) ? (
+        return (
           <label key={option} className="checkbox">
-            <input checked onChange={onChange} name={name} type="checkbox" />
-            {" " + option}
-          </label>
-        ) : (
-          <label key={option} className="checkbox">
-            <input onChange={onChange} name={name} type="checkbox" />
+            <input
+              checked={selectedList && selectedList.includes(option)}
+              onChange={onChange}
+              name={name}
+              type="checkbox"
+            />
             {" " + option}
           </label>
         );
