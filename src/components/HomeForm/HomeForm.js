@@ -28,6 +28,11 @@ class HomeForm extends React.Component {
       buildingType: "",
       notes: "",
       errorMessage: "",
+      titleError: false,
+      priceError: false,
+      urlError: false,
+      bedroomError: false,
+      bathroomError: false,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -99,25 +104,40 @@ class HomeForm extends React.Component {
 
   isValid() {
     if (!this.state.link) {
-      this.setState({ errorMessage: "Please enter a valid URL" });
+      this.setState({
+        errorMessage: "Please enter a valid URL",
+        urlError: true,
+      });
       return false;
     }
+    this.setState({ urlError: false });
     if (!this.state.title) {
-      this.setState({ errorMessage: "Please enter a title" });
+      this.setState({ errorMessage: "Please enter a title", titleError: true });
       return false;
     }
+    this.setState({ titleError: false });
     if (!this.state.price) {
-      this.setState({ errorMessage: "Please enter a price" });
+      this.setState({ errorMessage: "Please enter a price", priceError: true });
       return false;
     }
+    this.setState({ priceError: false });
     if (!this.state.bedrooms) {
-      this.setState({ errorMessage: "Please enter the amount of bedrooms" });
+      this.setState({
+        errorMessage: "Please enter the amount of bedrooms",
+        bedroomError: true,
+      });
       return false;
     }
+    this.setState({ bathroomError: false });
     if (!this.state.bathrooms) {
-      this.setState({ errorMessage: "Please enter the amount of bathrooms" });
+      this.setState({
+        errorMessage: "Please enter the amount of bathrooms",
+        bathroomError: true,
+      });
       return false;
     }
+    this.setState({ bathroomError: false });
+    
     this.setState({ errorMessage: "" });
     return true;
   }
@@ -132,6 +152,7 @@ class HomeForm extends React.Component {
           type="text"
           placeholder="e.g. '2 Bed 1 Bath Condo in Mount Pleasant'"
           value={this.state.title}
+          isError={this.state.titleError}
         ></TextField>
 
         <FieldLabel label="Price" isRequired={true}></FieldLabel>
@@ -142,6 +163,7 @@ class HomeForm extends React.Component {
           step="100"
           placeholder="$"
           value={this.state.price}
+          isError={this.state.priceError}
         ></TextField>
 
         <FieldLabel label="URL" isRequired={true}></FieldLabel>
@@ -151,6 +173,7 @@ class HomeForm extends React.Component {
           type="text"
           placeholder="https://"
           value={this.state.link}
+          isError={this.state.urlError}
         ></TextField>
 
         <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>
@@ -159,6 +182,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           options={["", "0", "1", "2", "3", "4", "5", "6", "7", "8"]}
           selected={this.state.bedrooms}
+          isError={this.state.bedroomError}
         ></SelectField>
 
         <FieldLabel label="Number of bathrooms" isRequired={true}></FieldLabel>
@@ -167,6 +191,7 @@ class HomeForm extends React.Component {
           onChange={this.handleInputChange}
           options={["", "1", "2", "3", "4", "5", "6"]}
           selected={this.state.bathrooms}
+          isError={this.state.bathroomError}
         ></SelectField>
 
         <FieldLabel label="Square footage (sqft)"></FieldLabel>
