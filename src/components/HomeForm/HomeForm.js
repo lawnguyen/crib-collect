@@ -80,10 +80,13 @@ class HomeForm extends React.Component {
       .add(homeModel)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
+
+        const dateAdded = Date.now();
         docRef.update({
-          dateAdded: firebase.firestore.FieldValue.serverTimestamp(),
+          dateAdded: dateAdded
         });
 
+        homeModel.dateAdded = dateAdded;
         this.props.addNewHome(homeModel);
       })
       .catch((error) => {
