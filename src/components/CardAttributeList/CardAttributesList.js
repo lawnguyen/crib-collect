@@ -32,7 +32,7 @@ class CardAttributes extends React.Component {
       <div className="content">
         <table className="table">
           <tbody>
-            {Object.keys(attributes).map((attr) => (
+            {Object.keys(attrToDisplayMap).map((attr) => (
               <Attribute
                 key={attr}
                 icon={attrToDisplayMap[attr].icon}
