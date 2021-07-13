@@ -84,12 +84,11 @@ class HomeForm extends React.Component {
         notes: this.state.notes,
       },
     };
-    firestore
-      .collection("homes")
-      .add(homeModel)
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
 
+    const docRef = firestore.collection("homes").doc(homeModel.id);
+    docRef
+      .set(homeModel)
+      .then(() => {
         const dateAdded = Date.now();
         docRef.update({
           dateAdded: dateAdded,
