@@ -30,6 +30,7 @@ function App(props) {
 
   function onCloseNewHomeModal() {
     updateNewHomeModalState(false);
+    updateEditHomeId(null);
   }
 
   function onEditHome(homeId) {
