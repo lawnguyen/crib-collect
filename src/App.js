@@ -68,7 +68,7 @@ function App(props) {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className="home column is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
+                        className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
                       >
                         <HomeCard homeDetails={home}></HomeCard>
                       </li>
