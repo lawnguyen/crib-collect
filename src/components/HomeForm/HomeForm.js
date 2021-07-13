@@ -103,7 +103,7 @@ class HomeForm extends React.Component {
   }
 
   isValid() {
-    if (!this.state.link) {
+    if (!this.state.link || !this.isValidUrl(this.state.link)) {
       this.setState({
         errorMessage: "Please enter a valid URL",
         urlError: true,
@@ -116,8 +116,8 @@ class HomeForm extends React.Component {
       return false;
     }
     this.setState({ titleError: false });
-    if (!this.state.price) {
-      this.setState({ errorMessage: "Please enter a price", priceError: true });
+    if (!this.state.price || this.state.price < 0) {
+      this.setState({ errorMessage: "Please enter a valid price", priceError: true });
       return false;
     }
     this.setState({ priceError: false });
@@ -137,10 +137,20 @@ class HomeForm extends React.Component {
       return false;
     }
     this.setState({ bathroomError: false });
-    
+
     this.setState({ errorMessage: "" });
     return true;
   }
+
+  isValidUrl = (url) => {
+    try {
+      new URL(url);
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+    return true;
+  };
 
   render() {
     return (
