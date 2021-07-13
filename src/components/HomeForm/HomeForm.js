@@ -14,27 +14,50 @@ import { v1 as uuidv1 } from "uuid";
 class HomeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      link: "",
-      title: "",
-      price: "",
-      bedrooms: "",
-      bathrooms: "",
-      sqft: "",
-      laundry: "",
-      neighborhood: "",
-      parking: "",
-      utilities: [],
-      airConditioning: "",
-      buildingType: "",
-      notes: "",
-      errorMessage: "",
-      titleError: false,
-      priceError: false,
-      urlError: false,
-      bedroomError: false,
-      bathroomError: false,
-    };
+    const editHome = this.props.editHome;
+    this.state = editHome
+      ? {
+          link: editHome.link,
+          title: editHome.title,
+          price: editHome.price,
+          bedrooms: editHome.attributes.bedrooms,
+          bathrooms: editHome.attributes.bathrooms,
+          sqft: editHome.attributes.sqft,
+          laundry: editHome.attributes.laundry,
+          neighborhood: editHome.attributes.neighborhood,
+          parking: editHome.attributes.parking,
+          utilities: editHome.attributes.utilities,
+          airConditioning: editHome.attributes.airConditioning,
+          buildingType: editHome.attributes.buildingType,
+          notes: editHome.attributes.notes,
+          errorMessage: "",
+          titleError: false,
+          priceError: false,
+          urlError: false,
+          bedroomError: false,
+          bathroomError: false,
+        }
+      : {
+          link: "",
+          title: "",
+          price: "",
+          bedrooms: "",
+          bathrooms: "",
+          sqft: "",
+          laundry: "",
+          neighborhood: "",
+          parking: "",
+          utilities: [],
+          airConditioning: "",
+          buildingType: "",
+          notes: "",
+          errorMessage: "",
+          titleError: false,
+          priceError: false,
+          urlError: false,
+          bedroomError: false,
+          bathroomError: false,
+        };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -66,8 +89,9 @@ class HomeForm extends React.Component {
     if (!this.isValid()) {
       return;
     }
+    const editHome = this.props.editHome ?? null;
     const homeModel = {
-      id: uuidv1(),
+      id: editHome.id ?? uuidv1(),
       link: this.state.link,
       title: this.state.title,
       price: this.state.price,
@@ -86,20 +110,32 @@ class HomeForm extends React.Component {
     };
 
     const docRef = firestore.collection("homes").doc(homeModel.id);
-    docRef
-      .set(homeModel)
-      .then(() => {
-        const dateAdded = Date.now();
-        docRef.update({
-          dateAdded: dateAdded,
-        });
 
-        homeModel.dateAdded = dateAdded;
-        this.props.addNewHome(homeModel);
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
+    if (editHome) {
+      docRef
+        .update(homeModel)
+        .then(() => {
+          this.props.onSubmitEdit(homeModel);
+        })
+        .catch((error) => {
+          console.error("Error updating document: ", error);
+        });
+    } else {
+      docRef
+        .set(homeModel)
+        .then(() => {
+          const dateAdded = Date.now();
+          docRef.update({
+            dateAdded: dateAdded,
+          });
+
+          homeModel.dateAdded = dateAdded;
+          this.props.addNewHome(homeModel);
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
+    }
   }
 
   isValid() {

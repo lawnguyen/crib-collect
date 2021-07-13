@@ -19,7 +19,10 @@ class HomeCard extends React.Component {
             attributes={this.props.homeDetails.attributes}
           ></CardAttributes>
         </div>
-        <CardFooter></CardFooter>
+        <CardFooter
+          editHomeId={this.props.homeDetails.id}
+          editHome={this.props.editHome}
+        ></CardFooter>
       </div>
     );
   }

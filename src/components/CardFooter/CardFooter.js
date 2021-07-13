@@ -7,7 +7,12 @@ class CardFooter extends React.Component {
   render() {
     return (
       <footer className="card-footer">
-        <button className="card-footer-item">
+        <button
+          onClick={() => {
+            this.props.editHome(this.props.editHomeId);
+          }}
+          className="card-footer-item"
+        >
           <img src={editIcon} alt="edit icon" />
         </button>
         <button className="card-footer-item">

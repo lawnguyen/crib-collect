@@ -5,12 +5,14 @@ import AddButton from "./components/AddButton/AddButton.js";
 import Modal from "./components/Modal/Modal";
 import HomeForm from "./components/HomeForm/HomeForm";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import update from "immutability-helper";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
 function App(props) {
   const [homes, updateHomes] = useState(props.homes);
   const [modalState, updateModalState] = useState(false);
+  const [editHomeId, updateEditHomeId] = useState(null);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -26,8 +28,20 @@ function App(props) {
     updateModalState(true);
   }
 
+  function onEditHome(homeId) {
+    onOpenModal();
+    updateEditHomeId(homeId);
+  }
+
   function onCloseModal() {
     updateModalState(false);
+  }
+
+  function editHome(updatedHome) {
+    // eslint-disable-next-line no-unused-vars
+    const homeIndex = homes.findIndex((x) => x.id === updatedHome.id);
+    updateHomes(update(homes, { [homeIndex]: { $set: updatedHome } }));
+    onCloseModal();
   }
 
   function addNewHome(newHome) {
@@ -43,8 +57,20 @@ function App(props) {
   return (
     <div className="app">
       {modalState ? (
-        <Modal onCloseModal={onCloseModal} title="Enter the home's details">
-          <HomeForm addNewHome={addNewHome}></HomeForm>
+        <Modal
+          editHome={homes.find((home) => {
+            return home.id === editHomeId;
+          })}
+          onCloseModal={onCloseModal}
+          title="Enter the home's details"
+        >
+          <HomeForm
+            onSubmitEdit={editHome}
+            editHome={homes.find((home) => {
+              return home.id === editHomeId;
+            })}
+            addNewHome={addNewHome}
+          ></HomeForm>
         </Modal>
       ) : null}
       <AddButton addNew={onOpenModal}></AddButton>
@@ -58,11 +84,7 @@ function App(props) {
             >
               {homes.map((home, index) => {
                 return (
-                  <Draggable
-                    key={home.id}
-                    draggableId={home.id}
-                    index={index}
-                  >
+                  <Draggable key={home.id} draggableId={home.id} index={index}>
                     {(provided) => (
                       <li
                         ref={provided.innerRef}
@@ -70,7 +92,10 @@ function App(props) {
                         {...provided.dragHandleProps}
                         className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
                       >
-                        <HomeCard homeDetails={home}></HomeCard>
+                        <HomeCard
+                          editHome={onEditHome}
+                          homeDetails={home}
+                        ></HomeCard>
                       </li>
                     )}
                   </Draggable>

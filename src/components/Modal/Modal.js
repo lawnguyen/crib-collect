@@ -1,7 +1,7 @@
 import React from "react";
 import "./Modal.css";
 
-function Modal({ title, children, onCloseModal }) {
+function Modal({ title, children, onCloseModal, homeId }) {
   return (
     <div className="modal is-active">
       <div className="modal-background"></div>
