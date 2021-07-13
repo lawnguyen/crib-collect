@@ -4,125 +4,31 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bulma/css/bulma.min.css";
+import { firestore } from "./firebase";
 
-const HOMES = [
-  {
-    link: "https://vancouver.craigslist.org/van/apa/d/vancouver-spacious-bed-coal-harbor/7338643305.html",
-    title:
-      "Spacious 3 Bed w/ Coal Harbor Views Move-in Incentives and Parking!",
-    price: 4000,
-    dateAdded: 1519211809934,
-    attributes: {
-      bedrooms: 3,
-      bathrooms: 2,
-      sqft: 1500,
-      laundry: "in-unit",
-      neighborhood: "Coal Harbour",
-      parking: "1 included, rent for $100/month",
-      utilities: ["Water", "Electricity", "Heat"],
-      airConditioning: true,
-      buildingType: "Condo",
-      notes: "building will be demolished within a year",
-    },
-  },
-  {
-    link: "https://www.facebook.com/marketplace/item/4019080401546837/",
-    title: "4 Beds · 3 Baths · Townhouse",
-    price: 3450,
-    dateAdded: 1519211809769,
-    attributes: {
-      bedrooms: 4,
-      bathrooms: 3,
-      sqft: 1800,
-      laundry: "in-unit",
-      neighborhood: "East Vancouver",
-      parking: "1 included",
-      utilities: [],
-      airConditioning: true,
-      buildingType: "Townhouse",
-      notes: "suspiciously cheap",
-    },
-  },
-  {
-    link: "https://www.facebook.com/marketplace/item/419080401546837/",
-    title: "4 Beds · 3 Baths · Townhouse",
-    price: 3450,
-    dateAdded: 1519211809769,
-    attributes: {
-      bedrooms: 4,
-      bathrooms: 3,
-      sqft: 1800,
-      laundry: "in-unit",
-      neighborhood: "East Vancouver",
-      parking: "1 included",
-      utilities: [],
-      airConditioning: true,
-      buildingType: "Townhouse",
-      notes: "suspiciously cheap",
-    },
-  },
-  {
-    link: "https://www.facebook.com/marketplace/item/401908041546837/",
-    title: "4 Beds · 3 Baths · Townhouse",
-    price: 3450,
-    dateAdded: 1519211809769,
-    attributes: {
-      bedrooms: 4,
-      bathrooms: 3,
-      sqft: 1800,
-      laundry: "in-unit",
-      neighborhood: "East Vancouver",
-      parking: "1 included",
-      utilities: [],
-      airConditioning: true,
-      buildingType: "Townhouse",
-      notes: "suspiciously cheap",
-    },
-  },
-  {
-    link: "https://www.facebook.com/marketplace/item/40190401546837/",
-    title: "4 Beds · 3 Baths · Townhouse",
-    price: 3450,
-    dateAdded: 1519211809769,
-    attributes: {
-      bedrooms: 4,
-      bathrooms: 3,
-      sqft: 1800,
-      laundry: "in-unit",
-      neighborhood: "East Vancouver",
-      parking: "1 included",
-      utilities: [],
-      airConditioning: true,
-      buildingType: "Townhouse",
-      notes: "suspiciously cheap",
-    },
-  },
-  {
-    link: "https://www.facebook.com/marketplace/itm/4019080401546837/",
-    title: "4 Beds · 3 Baths · Townhouse",
-    price: 3450,
-    dateAdded: 1519211809769,
-    attributes: {
-      bedrooms: 4,
-      bathrooms: 3,
-      sqft: 1800,
-      laundry: "in-unit",
-      neighborhood: "East Vancouver",
-      parking: "1 included",
-      utilities: [],
-      airConditioning: true,
-      buildingType: "Townhouse",
-      notes: "suspiciously cheap",
-    },
-  },
-];
+let HOMES = [];
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App homes={HOMES} />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+firestore
+  .collection("homes")
+  .get()
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+
+      HOMES.push(doc.data());
+    });
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <App homes={HOMES} />
+      </React.StrictMode>,
+      document.getElementById("root")
+    );
+  })
+  .catch((error) => {
+    console.log("Error getting documents: ", error);
+  });
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
