@@ -9,6 +9,7 @@ import FieldLabel from "./FieldLabel/FieldLabel";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import { firestore } from "../../firebase";
+import { v1 as uuidv1 } from "uuid";
 
 class HomeForm extends React.Component {
   constructor(props) {
@@ -61,12 +62,12 @@ class HomeForm extends React.Component {
   }
 
   onSubmit() {
-    // TODO: check required fields are valid
     // TODO: don't add duplicates to the database
     if (!this.isValid()) {
       return;
     }
     const homeModel = {
+      id: uuidv1(),
       link: this.state.link,
       title: this.state.title,
       price: this.state.price,
@@ -117,7 +118,10 @@ class HomeForm extends React.Component {
     }
     this.setState({ titleError: false });
     if (!this.state.price || this.state.price < 0) {
-      this.setState({ errorMessage: "Please enter a valid price", priceError: true });
+      this.setState({
+        errorMessage: "Please enter a valid price",
+        priceError: true,
+      });
       return false;
     }
     this.setState({ priceError: false });

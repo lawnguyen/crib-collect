@@ -59,8 +59,8 @@ function App(props) {
               {homes.map((home, index) => {
                 return (
                   <Draggable
-                    key={home.link}
-                    draggableId={home.link}
+                    key={home.id}
+                    draggableId={home.id}
                     index={index}
                   >
                     {(provided) => (
