@@ -11,7 +11,7 @@ import update from "immutability-helper";
 
 function App(props) {
   const [homes, updateHomes] = useState(props.homes);
-  const [modalState, updateModalState] = useState(false);
+  const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
 
   function handleOnDragEnd(result) {
@@ -24,24 +24,28 @@ function App(props) {
     updateHomes(items);
   }
 
-  function onOpenModal() {
-    updateModalState(true);
+  function onOpenNewHomeModal() {
+    updateNewHomeModalState(true);
+  }
+
+  function onCloseNewHomeModal() {
+    updateNewHomeModalState(false);
   }
 
   function onEditHome(homeId) {
-    onOpenModal();
+    onOpenNewHomeModal();
     updateEditHomeId(homeId);
   }
 
-  function onCloseModal() {
-    updateModalState(false);
+  function onDeleteHome(homeId) {
+
   }
 
   function editHome(updatedHome) {
     // eslint-disable-next-line no-unused-vars
     const homeIndex = homes.findIndex((x) => x.id === updatedHome.id);
     updateHomes(update(homes, { [homeIndex]: { $set: updatedHome } }));
-    onCloseModal();
+    onCloseNewHomeModal();
   }
 
   function addNewHome(newHome) {
@@ -50,18 +54,18 @@ function App(props) {
       console.log("already in homes list");
     } else {
       updateHomes([...homes, newHome]);
-      onCloseModal();
+      onCloseNewHomeModal();
     }
   }
 
   return (
     <div className="app">
-      {modalState ? (
+      {newHomeModalState ? (
         <Modal
           editHome={homes.find((home) => {
             return home.id === editHomeId;
           })}
-          onCloseModal={onCloseModal}
+          onCloseModal={onCloseNewHomeModal}
           title="Enter the home's details"
         >
           <HomeForm
@@ -73,7 +77,7 @@ function App(props) {
           ></HomeForm>
         </Modal>
       ) : null}
-      <AddButton addNew={onOpenModal}></AddButton>
+      <AddButton addNew={onOpenNewHomeModal}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
