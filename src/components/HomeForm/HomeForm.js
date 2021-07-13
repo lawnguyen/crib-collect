@@ -24,7 +24,7 @@ class HomeForm extends React.Component {
       neighborhood: "",
       parking: "",
       utilities: [],
-      airConditioning: "N/A",
+      airConditioning: "",
       buildingType: "",
       notes: "",
       errorMessage: "",
