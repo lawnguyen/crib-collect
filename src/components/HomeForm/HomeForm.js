@@ -91,7 +91,7 @@ class HomeForm extends React.Component {
     }
     const editHome = this.props.editHome ?? null;
     const homeModel = {
-      id: editHome.id ?? uuidv1(),
+      id: editHome ? editHome.id : uuidv1(),
       link: this.state.link,
       title: this.state.title,
       price: this.state.price,
