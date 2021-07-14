@@ -16,6 +16,8 @@ function App(props) {
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
+  const [homeExistsWarningModalState, updatehomeExistsWarningModalState] =
+    useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
 
@@ -80,8 +82,7 @@ function App(props) {
 
   function addNewHome(newHome) {
     if (homes.some((home) => home.link === newHome.link)) {
-      // TODO: user error message
-      console.log("already in homes list");
+      updatehomeExistsWarningModalState(true);
     } else {
       updateHomes([...homes, newHome]);
       onCloseNewHomeModal();
@@ -103,10 +104,22 @@ function App(props) {
             editHome={homes.find((home) => {
               return home.id === editHomeId;
             })}
+            homes={homes}
+            duplicateHomeWarning={() => updatehomeExistsWarningModalState(true)}
             addNewHome={addNewHome}
           ></HomeForm>
         </Modal>
       ) : null}
+
+      {homeExistsWarningModalState ? (
+        <Modal
+          onCloseModal={() => updatehomeExistsWarningModalState(false)}
+          title="Duplicate Warning"
+        >
+          The link for this home already exists in your current homes.
+        </Modal>
+      ) : null}
+
       {confirmDeleteModalState ? (
         <Modal
           onCloseModal={onCloseConfirmDeleteModal}

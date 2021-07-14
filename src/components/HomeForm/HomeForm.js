@@ -70,6 +70,12 @@ class HomeForm extends React.Component {
       : target.value;
     const name = target.name;
 
+    if (
+      name === "link" &&
+      this.props.homes.some((home) => home.link === value)
+    ) {
+      this.props.duplicateHomeWarning();
+    }
     if (target.type === "checkbox") {
       // Add value to state array if checked, remove otherwise
       this.setState({
