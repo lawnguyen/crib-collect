@@ -6,13 +6,17 @@ import Modal from "./components/Modal/Modal";
 import HomeForm from "./components/HomeForm/HomeForm";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import update from "immutability-helper";
+import ConfirmationButtons from "./components/ConfirmationButtons/ConfirmationButtons";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
 function App(props) {
   const [homes, updateHomes] = useState(props.homes);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
+  const [confirmDeleteModalState, updateConfirmDeleteModalState] =
+    useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
+  const [deleteHomeId, updateDeleteHomeId] = useState(null);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -33,20 +37,34 @@ function App(props) {
     updateEditHomeId(null);
   }
 
+  function onOpenConfirmDeleteModal() {
+    updateConfirmDeleteModalState(true);
+  }
+
+  function onCloseConfirmDeleteModal() {
+    updateConfirmDeleteModalState(false);
+    updateDeleteHomeId(null);
+  }
+
   function onEditHome(homeId) {
     onOpenNewHomeModal();
     updateEditHomeId(homeId);
   }
 
   function onDeleteHome(homeId) {
-
+    onOpenConfirmDeleteModal();
+    updateDeleteHomeId(homeId);
   }
 
   function editHome(updatedHome) {
-    // eslint-disable-next-line no-unused-vars
     const homeIndex = homes.findIndex((x) => x.id === updatedHome.id);
     updateHomes(update(homes, { [homeIndex]: { $set: updatedHome } }));
     onCloseNewHomeModal();
+  }
+
+  function deleteHome() {
+    updateHomes(homes.filter(home => home.id !== deleteHomeId));
+    onCloseConfirmDeleteModal();
   }
 
   function addNewHome(newHome) {
@@ -78,6 +96,17 @@ function App(props) {
           ></HomeForm>
         </Modal>
       ) : null}
+      {confirmDeleteModalState ? (
+        <Modal
+          onCloseModal={onCloseConfirmDeleteModal}
+          title="Are you sure you want to delete this home?"
+        >
+          <ConfirmationButtons
+            onCancel={onCloseConfirmDeleteModal}
+            onConfirm={deleteHome}
+          ></ConfirmationButtons>
+        </Modal>
+      ) : null}
       <AddButton addNew={onOpenNewHomeModal}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
@@ -99,6 +128,7 @@ function App(props) {
                       >
                         <HomeCard
                           editHome={onEditHome}
+                          deleteHome={onDeleteHome}
                           homeDetails={home}
                         ></HomeCard>
                       </li>

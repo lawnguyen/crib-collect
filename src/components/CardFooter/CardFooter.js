@@ -9,13 +9,18 @@ class CardFooter extends React.Component {
       <footer className="card-footer">
         <button
           onClick={() => {
-            this.props.editHome(this.props.editHomeId);
+            this.props.editHome(this.props.homeId);
           }}
           className="card-footer-item"
         >
           <img src={editIcon} alt="edit icon" />
         </button>
-        <button className="card-footer-item">
+        <button
+          onClick={() => {
+            this.props.deleteHome(this.props.homeId);
+          }}
+          className="card-footer-item"
+        >
           <img src={deleteIcon} alt="delete icon" />
         </button>
       </footer>
