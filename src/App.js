@@ -7,6 +7,7 @@ import HomeForm from "./components/HomeForm/HomeForm";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import update from "immutability-helper";
 import ConfirmationButtons from "./components/ConfirmationButtons/ConfirmationButtons";
+import { firestore } from "./firebase";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -63,7 +64,17 @@ function App(props) {
   }
 
   function deleteHome() {
-    updateHomes(homes.filter(home => home.id !== deleteHomeId));
+    updateHomes(homes.filter((home) => home.id !== deleteHomeId));
+    firestore
+      .collection("homes")
+      .doc(deleteHomeId)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
     onCloseConfirmDeleteModal();
   }
 
