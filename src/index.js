@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bulma/css/bulma.min.css";
 import { firestore } from "./firebase";
+import SignInScreen from "./components/SignInScreen/SignInScreen";
 
 let HOMES = [];
 
@@ -21,7 +21,7 @@ firestore
 
     ReactDOM.render(
       <React.StrictMode>
-        <App homes={HOMES} />
+        <SignInScreen homes={HOMES}></SignInScreen>
       </React.StrictMode>,
       document.getElementById("root")
     );
