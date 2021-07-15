@@ -28,6 +28,7 @@ function SignInScreen({ homes }) {
         username={auth.currentUser.displayName}
         buttonText="Sign out"
         onClick={() => auth.signOut()}
+        userPhotoUrl={auth.currentUser.photoURL}
       ></NavBar>
       <App homes={homes} />
     </div>

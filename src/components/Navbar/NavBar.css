@@ -1,0 +1,8 @@
+.welcome-message {
+  color: whitesmoke;
+}
+
+.photo {
+  max-width: 4rem;
+  border-radius: 50%;
+}
