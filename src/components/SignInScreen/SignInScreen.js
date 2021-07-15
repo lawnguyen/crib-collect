@@ -18,7 +18,12 @@ function SignInScreen({ homes }) {
   if (!isSignedIn) {
     return (
       <div>
-        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+        <NavBar isSignedIn={false}></NavBar>
+        <div className="card">
+          <div className="card-content">
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -29,6 +34,7 @@ function SignInScreen({ homes }) {
         buttonText="Sign out"
         onClick={() => auth.signOut()}
         userPhotoUrl={auth.currentUser.photoURL}
+        isSignedIn={true}
       ></NavBar>
       <App homes={homes} />
     </div>

@@ -1,7 +1,26 @@
 import React from "react";
 import "./NavBar.css";
 
-function NavBar({ buttonText, username, onClick, userPhotoUrl }) {
+function NavBar({ buttonText, username, onClick, userPhotoUrl, isSignedIn }) {
+  if (!isSignedIn) {
+    return (
+      <nav
+        className="navbar is-spaced is-info"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div className="navbar-menu">
+          <div className="navbar-start">
+            <div className="navbar-item">
+              <h1 className="title welcome-message">
+                <b>CribCollect</b>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  }
   return (
     <nav
       className="navbar is-spaced is-info"
