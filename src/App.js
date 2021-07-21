@@ -43,9 +43,23 @@ function App() {
                 querySnapshot.forEach((doc) => {
                   homeData.push(doc.data());
                 });
-                updateHomes([...homes, ...homeData])
+                updateHomes([...homes, ...homeData]);
               });
           });
+        } else {
+          firestore
+            .collection("userGroups")
+            .add({ name: `${auth.currentUser.displayName}'s homes` })
+            .then((docRef) => {
+              firestore
+                .collection("users")
+                .doc(auth.currentUser.uid)
+                .set({
+                  displayName: auth.currentUser.displayName,
+                  photoUrl: auth.currentUser.photoURL,
+                  userGroups: [docRef.id],
+                });
+            });
         }
       })
       .catch((error) => {
