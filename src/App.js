@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeCard from "./components/HomeCard/HomeCard.js";
 import AddButton from "./components/AddButton/AddButton.js";
 import Modal from "./components/Modal/Modal";
@@ -8,11 +8,12 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import update from "immutability-helper";
 import ConfirmationButtons from "./components/ConfirmationButtons/ConfirmationButtons";
 import { firestore } from "./firebase";
+import { auth } from "./firebase";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
-function App(props) {
-  const [homes, updateHomes] = useState(props.homes);
+function App() {
+  const [homes, updateHomes] = useState([]);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
@@ -20,6 +21,37 @@ function App(props) {
     useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(getHomes, []);
+
+  function getHomes() {
+    firestore
+      .collection("users")
+      .doc(auth.currentUser.uid)
+      .get()
+      .then((user) => {
+        if (user.exists) {
+          const userGroups = user.data().userGroups;
+          userGroups.forEach((group) => {
+            firestore
+              .collection("homes")
+              .where("groupId", "==", group)
+              .get()
+              .then((querySnapshot) => {
+                let homeData = [];
+                querySnapshot.forEach((doc) => {
+                  homeData.push(doc.data());
+                });
+                updateHomes([...homes, ...homeData])
+              });
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting user document:", error);
+      });
+  }
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
