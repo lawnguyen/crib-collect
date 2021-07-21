@@ -47,6 +47,7 @@ function App() {
               });
           });
         } else {
+          // If user does not exist then create the required documents for the new user
           firestore
             .collection("userGroups")
             .add({ name: `${auth.currentUser.displayName}'s homes` })
