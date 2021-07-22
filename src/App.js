@@ -15,6 +15,7 @@ import { auth } from "./firebase";
 function App() {
   const [homes, updateHomes] = useState([]);
   const [selectedGroup, updateSelectedGroup] = useState(null);
+  const [groups, updateGroups] = useState([]);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
@@ -35,6 +36,7 @@ function App() {
         if (user.exists) {
           let firstGroup;
           const userGroups = user.data().userGroups;
+          updateGroups([...groups, ...userGroups]);
           userGroups.forEach((group) => {
             firestore
               .collection("homes")
