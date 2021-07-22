@@ -14,6 +14,7 @@ import { auth } from "./firebase";
 
 function App() {
   const [homes, updateHomes] = useState([]);
+  const [selectedGroup, updateSelectedGroup] = useState(null);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
@@ -32,6 +33,7 @@ function App() {
       .get()
       .then((user) => {
         if (user.exists) {
+          let firstGroup;
           const userGroups = user.data().userGroups;
           userGroups.forEach((group) => {
             firestore
@@ -44,6 +46,11 @@ function App() {
                   homeData.push(doc.data());
                 });
                 updateHomes([...homes, ...homeData]);
+
+                if (!firstGroup) {
+                  firstGroup = group;
+                  updateSelectedGroup(firstGroup);
+                }
               });
           });
         } else {
@@ -60,6 +67,7 @@ function App() {
                   photoUrl: auth.currentUser.photoURL,
                   userGroups: [docRef.id],
                 });
+              updateSelectedGroup(docRef.id);
             });
         }
       })
@@ -154,6 +162,7 @@ function App() {
             homes={homes}
             duplicateHomeWarning={() => updatehomeExistsWarningModalState(true)}
             addNewHome={addNewHome}
+            groupId={selectedGroup}
           ></HomeForm>
         </Modal>
       ) : null}

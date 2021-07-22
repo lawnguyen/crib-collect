@@ -91,7 +91,6 @@ class HomeForm extends React.Component {
   }
 
   onSubmit() {
-    // TODO: don't add duplicates to the database
     if (!this.isValid()) {
       return;
     }
@@ -101,6 +100,7 @@ class HomeForm extends React.Component {
       link: this.state.link,
       title: this.state.title,
       price: this.state.price,
+      groupId: this.props.groupId,
       attributes: {
         bedrooms: this.state.bedrooms,
         bathrooms: this.state.bathrooms,
