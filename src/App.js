@@ -23,6 +23,7 @@ function App() {
     useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
+  let groupIdGroupNameMap = {};
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(getHomes, []);
@@ -35,6 +36,7 @@ function App() {
       .then((user) => {
         if (user.exists) {
           let firstGroup;
+          let homeData = [];
           const userGroups = user.data().userGroups;
           updateGroups([...groups, ...userGroups]);
           userGroups.forEach((group) => {
@@ -43,7 +45,6 @@ function App() {
               .where("groupId", "==", group)
               .get()
               .then((querySnapshot) => {
-                let homeData = [];
                 querySnapshot.forEach((doc) => {
                   homeData.push(doc.data());
                 });
@@ -53,6 +54,13 @@ function App() {
                   firstGroup = group;
                   updateSelectedGroup(firstGroup);
                 }
+              });
+            firestore
+              .collection("userGroups")
+              .doc(group)
+              .get()
+              .then((userGroupDoc) => {
+                groupIdGroupNameMap[group] = userGroupDoc.data().name;
               });
           });
         } else {
