@@ -9,6 +9,7 @@ import update from "immutability-helper";
 import ConfirmationButtons from "./components/ConfirmationButtons/ConfirmationButtons";
 import { firestore } from "./firebase";
 import { auth } from "./firebase";
+import Dropdown from "./components/Dropdown/Dropdown";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -204,6 +205,7 @@ function App() {
           ></ConfirmationButtons>
         </Modal>
       ) : null}
+      <Dropdown groups={groups} selectedGroup={selectedGroup}></Dropdown>
       <AddButton addNew={onOpenNewHomeModal}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
