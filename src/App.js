@@ -14,7 +14,7 @@ import { auth } from "./firebase";
 
 function App() {
   const [homes, updateHomes] = useState([]);
-  const [selectedGroup, updateSelectedGroup] = useState(null);
+  const [selectedGroup, updateSelectedGroup] = useState({});
   const [groups, updateGroups] = useState([]);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
@@ -23,7 +23,6 @@ function App() {
     useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
-  let groupIdGroupNameMap = {};
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(getHomes, []);
@@ -38,7 +37,6 @@ function App() {
           let firstGroup;
           let homeData = [];
           const userGroups = user.data().userGroups;
-          updateGroups([...groups, ...userGroups]);
           userGroups.forEach((group) => {
             firestore
               .collection("homes")
@@ -50,17 +48,23 @@ function App() {
                 });
                 updateHomes([...homes, ...homeData]);
 
-                if (!firstGroup) {
-                  firstGroup = group;
-                  updateSelectedGroup(firstGroup);
-                }
-              });
-            firestore
-              .collection("userGroups")
-              .doc(group)
-              .get()
-              .then((userGroupDoc) => {
-                groupIdGroupNameMap[group] = userGroupDoc.data().name;
+                firestore
+                  .collection("userGroups")
+                  .doc(group)
+                  .get()
+                  .then((userGroupDoc) => {
+                    if (!firstGroup) {
+                      firstGroup = group;
+                      updateSelectedGroup({
+                        id: firstGroup,
+                        name: userGroupDoc.data().name,
+                      });
+                    }
+                    updateGroups((groups) => [
+                      ...groups,
+                      { id: group, name: userGroupDoc.data().name },
+                    ]);
+                  });
               });
           });
         } else {
@@ -77,7 +81,10 @@ function App() {
                   photoUrl: auth.currentUser.photoURL,
                   userGroups: [docRef.id],
                 });
-              updateSelectedGroup(docRef.id);
+              updateSelectedGroup({
+                id: docRef.id,
+                name: `${auth.currentUser.displayName}'s homes`,
+              });
             });
         }
       })
@@ -172,7 +179,7 @@ function App() {
             homes={homes}
             duplicateHomeWarning={() => updatehomeExistsWarningModalState(true)}
             addNewHome={addNewHome}
-            groupId={selectedGroup}
+            groupId={selectedGroup.id}
           ></HomeForm>
         </Modal>
       ) : null}
