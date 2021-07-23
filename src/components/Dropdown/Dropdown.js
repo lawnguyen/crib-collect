@@ -1,4 +1,6 @@
 import React from "react";
+import expandIcon from "../../icons/expandDropdown.svg";
+import "./Dropdown.css";
 
 function Dropdown({
   groups,
@@ -19,8 +21,12 @@ function Dropdown({
           }}
         >
           <span>{selectedGroup.name}</span>
-          <span className="icon is-small">
-            <i className="fas fa-angle-down" aria-hidden="true"></i>
+          <span>
+            <img
+              className="expand-icon"
+              alt={"expand dropdown icon"}
+              src={expandIcon}
+            />
           </span>
         </button>
       </div>
