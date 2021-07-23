@@ -17,6 +17,7 @@ function App() {
   const [homes, updateHomes] = useState([]);
   const [selectedGroup, updateSelectedGroup] = useState({});
   const [groups, updateGroups] = useState([]);
+  const [dropdownState, updateDropdownState] = useState(false);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
@@ -205,7 +206,13 @@ function App() {
           ></ConfirmationButtons>
         </Modal>
       ) : null}
-      <Dropdown groups={groups} selectedGroup={selectedGroup}></Dropdown>
+      <Dropdown
+        groups={groups}
+        selectedGroup={selectedGroup}
+        updateSelectedGroup={updateSelectedGroup}
+        dropdownState={dropdownState}
+        updateDropdownState={updateDropdownState}
+      ></Dropdown>
       <AddButton addNew={onOpenNewHomeModal}></AddButton>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">

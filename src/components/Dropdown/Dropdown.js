@@ -1,13 +1,22 @@
 import React from "react";
 
-function Dropdown({ groups, selectedGroup }) {
+function Dropdown({
+  groups,
+  selectedGroup,
+  updateSelectedGroup,
+  dropdownState,
+  updateDropdownState,
+}) {
   return (
-    <div className="dropdown is-active">
+    <div className={`dropdown ${dropdownState ? "is-active" : ""} `}>
       <div className="dropdown-trigger">
         <button
           className="button"
           aria-haspopup="true"
           aria-controls="dropdown-menu"
+          onClick={() => {
+            updateDropdownState(!dropdownState);
+          }}
         >
           <span>{selectedGroup.name}</span>
           <span className="icon is-small">
@@ -19,7 +28,17 @@ function Dropdown({ groups, selectedGroup }) {
         <div className="dropdown-content">
           {groups.map((group) => {
             return (
-              <button key={group.id} className="dropdown-item">
+              <button
+                key={group.id}
+                onClick={() => {
+                  updateSelectedGroup({
+                    id: group.id,
+                    name: group.name,
+                  });
+                  updateDropdownState(false);
+                }}
+                className="dropdown-item"
+              >
                 {group.name}
               </button>
             );
