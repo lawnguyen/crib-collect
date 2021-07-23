@@ -40,58 +40,69 @@ function App() {
           let homeData = [];
           const userGroups = user.data().userGroups;
           userGroups.forEach((group) => {
-            firestore
-              .collection("homes")
-              .where("groupId", "==", group)
-              .get()
-              .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                  homeData.push(doc.data());
-                });
-                updateHomes([...homes, ...homeData]);
-
-                firestore
-                  .collection("userGroups")
-                  .doc(group)
-                  .get()
-                  .then((userGroupDoc) => {
-                    if (!firstGroup) {
-                      firstGroup = group;
-                      updateSelectedGroup({
-                        id: firstGroup,
-                        name: userGroupDoc.data().name,
-                      });
-                    }
-                    updateGroups((groups) => [
-                      ...groups,
-                      { id: group, name: userGroupDoc.data().name },
-                    ]);
-                  });
-              });
+            getHomesForGroup(homeData, firstGroup, group);
           });
         } else {
-          // If user does not exist then create the required documents for the new user
-          firestore
-            .collection("userGroups")
-            .add({ name: `${auth.currentUser.displayName}'s homes` })
-            .then((docRef) => {
-              firestore
-                .collection("users")
-                .doc(auth.currentUser.uid)
-                .set({
-                  displayName: auth.currentUser.displayName,
-                  photoUrl: auth.currentUser.photoURL,
-                  userGroups: [docRef.id],
-                });
-              updateSelectedGroup({
-                id: docRef.id,
-                name: `${auth.currentUser.displayName}'s homes`,
-              });
-            });
+          // If user does not exist then create the user and the required documents
+          createNewUser();
         }
       })
       .catch((error) => {
         console.log("Error getting user document:", error);
+      });
+  }
+
+  function getHomesForGroup(homeData, firstGroup, group) {
+    firestore
+      .collection("homes")
+      .where("groupId", "==", group)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          homeData.push(doc.data());
+        });
+        updateHomes([...homes, ...homeData]);
+        setGroupData(firstGroup, group);
+      });
+  }
+
+  function setGroupData(firstGroup, group) {
+    firestore
+      .collection("userGroups")
+      .doc(group)
+      .get()
+      .then((userGroupDoc) => {
+        if (!firstGroup) {
+          firstGroup = group;
+          updateSelectedGroup({
+            id: firstGroup,
+            name: userGroupDoc.data().name,
+          });
+        }
+        updateGroups((groups) => [
+          ...groups,
+          { id: group, name: userGroupDoc.data().name },
+        ]);
+      });
+  }
+
+  function createNewUser() {
+    firestore
+      .collection("userGroups")
+      .add({ name: `${auth.currentUser.displayName}'s homes` })
+      .then((docRef) => {
+        firestore
+          .collection("users")
+          .doc(auth.currentUser.uid)
+          .set({
+            displayName: auth.currentUser.displayName,
+            photoUrl: auth.currentUser.photoURL,
+            userGroups: [docRef.id],
+          });
+        updateSelectedGroup({
+          id: docRef.id,
+          name: `${auth.currentUser.displayName}'s homes`,
+        });
       });
   }
 
