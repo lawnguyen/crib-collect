@@ -43,7 +43,9 @@ function Dropdown({
                   });
                   updateDropdownState(false);
                 }}
-                className="dropdown-item"
+                className={`dropdown-item ${
+                  selectedGroup.id === group.id ? "is-active" : ""
+                }`}
               >
                 {group.name}
               </button>
