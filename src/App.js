@@ -222,26 +222,32 @@ function App() {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {homes.map((home, index) => {
-                return (
-                  <Draggable key={home.id} draggableId={home.id} index={index}>
-                    {(provided) => (
-                      <li
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
-                      >
-                        <HomeCard
-                          editHome={onEditHome}
-                          deleteHome={onDeleteHome}
-                          homeDetails={home}
-                        ></HomeCard>
-                      </li>
-                    )}
-                  </Draggable>
-                );
-              })}
+              {homes
+                .filter((h) => selectedGroup.id === h.groupId)
+                .map((home, index) => {
+                  return (
+                    <Draggable
+                      key={home.id}
+                      draggableId={home.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
+                        >
+                          <HomeCard
+                            editHome={onEditHome}
+                            deleteHome={onDeleteHome}
+                            homeDetails={home}
+                          ></HomeCard>
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
               {provided.placeholder}
             </ul>
           )}
