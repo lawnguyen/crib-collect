@@ -34,9 +34,9 @@ function App({ match }) {
   useEffect(getHomes, []);
 
   function getHomes() {
-    firestore
-      .collection("users")
-      .doc(auth.currentUser.uid)
+    const userDocRef = firestore.collection("users").doc(auth.currentUser.uid);
+
+    userDocRef
       .get()
       .then((user) => {
         if (user.exists) {
@@ -50,6 +50,16 @@ function App({ match }) {
             userGroups = [...userGroups, sharedGroup];
             firstGroup = sharedGroup;
             updateSharedGroupModalState(true);
+
+            userDocRef
+              .update({
+                userGroups: userGroups,
+              })
+              .then(() => {
+                console.log(
+                  `Group ${sharedGroup} successfully added to user's group`
+                );
+              });
           }
 
           userGroups.forEach((group) => {
