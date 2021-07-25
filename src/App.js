@@ -11,6 +11,7 @@ import { firestore } from "./firebase";
 import { auth } from "./firebase";
 import Dropdown from "./components/Dropdown/Dropdown";
 import { useHistory } from "react-router-dom";
+import NavBar from "./components/Navbar/NavBar";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -223,123 +224,137 @@ function App({ match }) {
   }
 
   return (
-    <div className="app">
-      {sharedGroupModalState && validGroupState ? (
-        <Modal
-          onCloseModal={() => updateSharedGroupModalState(false)}
-          title="Welcome"
-        >
-          You have been invited to <b>{sharedGroupName}</b> group
-        </Modal>
-      ) : null}
+    <div>
+      <NavBar
+        username={auth.currentUser.displayName}
+        buttonText="Sign out"
+        onClick={() => {
+          history.push("/");
+          auth.signOut();
+        }}
+        userPhotoUrl={auth.currentUser.photoURL}
+        isSignedIn={true}
+      ></NavBar>
+      <div className="app">
+        {sharedGroupModalState && validGroupState ? (
+          <Modal
+            onCloseModal={() => updateSharedGroupModalState(false)}
+            title="Welcome"
+          >
+            You have been invited to <b>{sharedGroupName}</b> group
+          </Modal>
+        ) : null}
 
-      {!validGroupState ? (
-        <Modal
-          onCloseModal={() => {
-            updateValidGroupState(true);
-            updateSharedGroupModalState(false);
-            if (groups.length) {
-              updateSelectedGroup(groups[1]);
-            }
-            history.push("/");
-          }}
-          title="Error"
-        >
-          No group with id {match.params.id} exists
-        </Modal>
-      ) : null}
+        {!validGroupState ? (
+          <Modal
+            onCloseModal={() => {
+              updateValidGroupState(true);
+              updateSharedGroupModalState(false);
+              if (groups.length) {
+                updateSelectedGroup(groups[1]);
+              }
+              history.push("/");
+            }}
+            title="Error"
+          >
+            No group with id {match.params.id} exists
+          </Modal>
+        ) : null}
 
-      {newHomeModalState ? (
-        <Modal
-          editHome={homes.find((home) => {
-            return home.id === editHomeId;
-          })}
-          onCloseModal={onCloseNewHomeModal}
-          title="Enter the home's details"
-        >
-          <HomeForm
-            onSubmitEdit={editHome}
+        {newHomeModalState ? (
+          <Modal
             editHome={homes.find((home) => {
               return home.id === editHomeId;
             })}
-            homes={homes}
-            duplicateHomeWarning={() => updatehomeExistsWarningModalState(true)}
-            addNewHome={addNewHome}
-            groupId={selectedGroup.id}
-          ></HomeForm>
-        </Modal>
-      ) : null}
+            onCloseModal={onCloseNewHomeModal}
+            title="Enter the home's details"
+          >
+            <HomeForm
+              onSubmitEdit={editHome}
+              editHome={homes.find((home) => {
+                return home.id === editHomeId;
+              })}
+              homes={homes}
+              duplicateHomeWarning={() =>
+                updatehomeExistsWarningModalState(true)
+              }
+              addNewHome={addNewHome}
+              groupId={selectedGroup.id}
+            ></HomeForm>
+          </Modal>
+        ) : null}
 
-      {homeExistsWarningModalState ? (
-        <Modal
-          onCloseModal={() => updatehomeExistsWarningModalState(false)}
-          title="Duplicate Warning"
-        >
-          The link for this home already exists in your current homes.
-        </Modal>
-      ) : null}
+        {homeExistsWarningModalState ? (
+          <Modal
+            onCloseModal={() => updatehomeExistsWarningModalState(false)}
+            title="Duplicate Warning"
+          >
+            The link for this home already exists in your current homes.
+          </Modal>
+        ) : null}
 
-      {confirmDeleteModalState ? (
-        <Modal
-          onCloseModal={onCloseConfirmDeleteModal}
-          title="Are you sure you want to delete this home?"
-        >
-          <ConfirmationButtons
-            onCancel={onCloseConfirmDeleteModal}
-            onConfirm={deleteHome}
-          ></ConfirmationButtons>
-        </Modal>
-      ) : null}
+        {confirmDeleteModalState ? (
+          <Modal
+            onCloseModal={onCloseConfirmDeleteModal}
+            title="Are you sure you want to delete this home?"
+          >
+            <ConfirmationButtons
+              onCancel={onCloseConfirmDeleteModal}
+              onConfirm={deleteHome}
+            ></ConfirmationButtons>
+          </Modal>
+        ) : null}
 
-      <Dropdown
-        groups={groups}
-        selectedGroup={selectedGroup}
-        updateSelectedGroup={updateSelectedGroup}
-        dropdownState={dropdownState}
-        updateDropdownState={updateDropdownState}
-      ></Dropdown>
+        <Dropdown
+          groups={groups}
+          selectedGroup={selectedGroup}
+          updateSelectedGroup={updateSelectedGroup}
+          dropdownState={dropdownState}
+          updateDropdownState={updateDropdownState}
+        ></Dropdown>
 
-      <AddButton addNew={onOpenNewHomeModal}></AddButton>
+        <AddButton addNew={onOpenNewHomeModal}></AddButton>
 
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="homes" direction="horizontal">
-          {(provided) => (
-            <ul
-              className="homes"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {homes
-                .filter((h) => selectedGroup.id === h.groupId)
-                .map((home, index) => {
-                  return (
-                    <Draggable
-                      key={home.id}
-                      draggableId={home.id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <li
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
-                        >
-                          <HomeCard
-                            editHome={onEditHome}
-                            deleteHome={onDeleteHome}
-                            homeDetails={home}
-                          ></HomeCard>
-                        </li>
-                      )}
-                    </Draggable>
-                  );
-                })}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="homes" direction="horizontal">
+            {(provided) => (
+              <ul
+                className="homes"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {homes
+                  .filter((h) => selectedGroup.id === h.groupId)
+                  .map((home, index) => {
+                    return (
+                      <Draggable
+                        key={home.id}
+                        draggableId={home.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <li
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-desktop"
+                          >
+                            <HomeCard
+                              editHome={onEditHome}
+                              deleteHome={onDeleteHome}
+                              homeDetails={home}
+                            ></HomeCard>
+                          </li>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
     </div>
   );
 }
