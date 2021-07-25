@@ -9,7 +9,7 @@ function CopyToClipboard() {
         className="input"
         type="text"
         value="https://crib-collect.web.app/group/1234124"
-        disabled
+        readOnly
       />
       <button className="copy-button">
         <img src={CopyIcon} alt="Copy icon"></img>
