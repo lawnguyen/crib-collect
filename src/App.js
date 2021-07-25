@@ -18,6 +18,7 @@ function App({ match }) {
   const [homes, updateHomes] = useState([]);
   const [selectedGroup, updateSelectedGroup] = useState({});
   const [groups, updateGroups] = useState([]);
+  const [sharedGroupName, updateSharedGroupName] = useState(null);
   const [validGroupState, updateValidGroupState] = useState(true);
   const [sharedGroupModalState, updateSharedGroupModalState] = useState(false);
   const [dropdownState, updateDropdownState] = useState(false);
@@ -75,6 +76,7 @@ function App({ match }) {
       .get()
       .then((sharedGroupDoc) => {
         if (sharedGroupDoc.exists) {
+          updateSharedGroupName(sharedGroupDoc.data().name);
           userDocRef
             .update({
               userGroups: userGroups,
@@ -223,7 +225,7 @@ function App({ match }) {
           onCloseModal={() => updateSharedGroupModalState(false)}
           title="Welcome"
         >
-          You have been invited to this home group
+          You have been invited to <b>{sharedGroupName}</b> group
         </Modal>
       ) : null}
 
