@@ -13,6 +13,7 @@ import Dropdown from "./components/Dropdown/Dropdown";
 import { useHistory } from "react-router-dom";
 import NavBar from "./components/Navbar/NavBar";
 import ShareButton from "./components/ShareButton/ShareButton";
+import CopyToClipboard from "./components/CopyToClipboard/CopyToClipboard";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -310,9 +311,9 @@ function App({ match }) {
         {shareModalState ? (
           <Modal
             onCloseModal={() => updateShareModalState(false)}
-            title="Share this home group"
+            title="Copy link to this group to share with others"
           >
-            Copy link to this group to share with others
+            <CopyToClipboard></CopyToClipboard>
           </Modal>
         ) : null}
 

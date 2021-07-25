@@ -1,0 +1,9 @@
+.copy-field {
+    display: flex;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.copy-button {
+    background-color: #f5f5f5;
+}
