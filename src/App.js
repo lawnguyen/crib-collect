@@ -50,16 +50,7 @@ function App({ match }) {
             userGroups = [...userGroups, sharedGroup];
             firstGroup = sharedGroup;
             updateSharedGroupModalState(true);
-
-            userDocRef
-              .update({
-                userGroups: userGroups,
-              })
-              .then(() => {
-                console.log(
-                  `Group ${sharedGroup} successfully added to user's group`
-                );
-              });
+            setSharedGroup(userDocRef, sharedGroup, userGroups);
           }
 
           userGroups.forEach((group) => {
@@ -72,6 +63,28 @@ function App({ match }) {
       })
       .catch((error) => {
         console.log("Error getting user document:", error);
+      });
+  }
+
+  function setSharedGroup(userDocRef, sharedGroup, userGroups) {
+    firestore
+      .collection("userGroups")
+      .doc(sharedGroup)
+      .get()
+      .then((sharedGroupDoc) => {
+        if (sharedGroupDoc.exists) {
+          userDocRef
+            .update({
+              userGroups: userGroups,
+            })
+            .then(() => {
+              console.log(
+                `Group ${sharedGroup} successfully added to user's group`
+              );
+            });
+        } else {
+          updateValidGroupState(false);
+        }
       });
   }
 
