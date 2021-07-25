@@ -6,3 +6,8 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.sorting-and-sharing {
+    display: flex;
+    justify-content: space-between;
+}

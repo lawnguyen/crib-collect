@@ -12,6 +12,7 @@ import { auth } from "./firebase";
 import Dropdown from "./components/Dropdown/Dropdown";
 import { useHistory } from "react-router-dom";
 import NavBar from "./components/Navbar/NavBar";
+import ShareButton from "./components/ShareButton/ShareButton";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -22,6 +23,7 @@ function App({ match }) {
   const [sharedGroupName, updateSharedGroupName] = useState(null);
   const [validGroupState, updateValidGroupState] = useState(true);
   const [sharedGroupModalState, updateSharedGroupModalState] = useState(false);
+  const [shareModalState, updateShareModalState] = useState(false);
   const [dropdownState, updateDropdownState] = useState(false);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
@@ -305,13 +307,27 @@ function App({ match }) {
           </Modal>
         ) : null}
 
-        <Dropdown
-          groups={groups}
-          selectedGroup={selectedGroup}
-          updateSelectedGroup={updateSelectedGroup}
-          dropdownState={dropdownState}
-          updateDropdownState={updateDropdownState}
-        ></Dropdown>
+        {shareModalState ? (
+          <Modal
+            onCloseModal={() => updateShareModalState(false)}
+            title="Share this home group"
+          >
+            Copy link to this group to share with others
+          </Modal>
+        ) : null}
+
+        <div className="sorting-and-sharing">
+          <Dropdown
+            groups={groups}
+            selectedGroup={selectedGroup}
+            updateSelectedGroup={updateSelectedGroup}
+            dropdownState={dropdownState}
+            updateDropdownState={updateDropdownState}
+          ></Dropdown>
+          <ShareButton
+            onClick={() => updateShareModalState(true)}
+          ></ShareButton>
+        </div>
 
         <AddButton addNew={onOpenNewHomeModal}></AddButton>
 
