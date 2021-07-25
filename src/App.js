@@ -226,6 +226,17 @@ function App({ match }) {
     }
   }
 
+  function getShareUrl() {
+    let url =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      "/group/" +
+      selectedGroup.id;
+
+    return url;
+  }
+
   return (
     <div>
       <NavBar
@@ -311,9 +322,9 @@ function App({ match }) {
         {shareModalState ? (
           <Modal
             onCloseModal={() => updateShareModalState(false)}
-            title="Copy link to this group to share with others"
+            title={`Copy link to this group to share ${selectedGroup.name} with others`}
           >
-            <CopyToClipboard></CopyToClipboard>
+            <CopyToClipboard textToCopy={getShareUrl()}></CopyToClipboard>
           </Modal>
         ) : null}
 
