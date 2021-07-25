@@ -3,6 +3,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import NavBar from "../Navbar/NavBar";
 import { auth, uiConfig } from "../../firebase";
 import App from "../../App";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function SignInScreen() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
@@ -37,7 +38,13 @@ function SignInScreen() {
         userPhotoUrl={auth.currentUser.photoURL}
         isSignedIn={true}
       ></NavBar>
-      <App />
+
+      <Router>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route exact path="/group/:id" component={App} />
+        </Switch>
+      </Router>
     </div>
   );
 }

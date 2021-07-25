@@ -10,13 +10,16 @@ import ConfirmationButtons from "./components/ConfirmationButtons/ConfirmationBu
 import { firestore } from "./firebase";
 import { auth } from "./firebase";
 import Dropdown from "./components/Dropdown/Dropdown";
+import { useHistory } from "react-router-dom";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
-function App() {
+function App({ match }) {
   const [homes, updateHomes] = useState([]);
   const [selectedGroup, updateSelectedGroup] = useState({});
   const [groups, updateGroups] = useState([]);
+  const [validGroupState, updateValidGroupState] = useState(true);
+  const [sharedGroupModalState, updateSharedGroupModalState] = useState(false);
   const [dropdownState, updateDropdownState] = useState(false);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
@@ -25,6 +28,7 @@ function App() {
     useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
+  const history = useHistory();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(getHomes, []);
@@ -38,7 +42,16 @@ function App() {
         if (user.exists) {
           let firstGroup;
           let homeData = [];
-          const userGroups = user.data().userGroups;
+          let userGroups = user.data().userGroups;
+
+          // If there is a group id in the url params from a group being shared
+          const sharedGroup = match.params.id;
+          if (sharedGroup) {
+            userGroups = [...userGroups, sharedGroup];
+            firstGroup = sharedGroup;
+            updateSharedGroupModalState(true);
+          }
+
           userGroups.forEach((group) => {
             getHomesForGroup(homeData, firstGroup, group);
           });
@@ -72,17 +85,21 @@ function App() {
       .doc(group)
       .get()
       .then((userGroupDoc) => {
-        if (!firstGroup) {
-          firstGroup = group;
-          updateSelectedGroup({
-            id: firstGroup,
-            name: userGroupDoc.data().name,
-          });
+        if (!userGroupDoc.data()) {
+          updateValidGroupState(false);
+        } else {
+          if (!firstGroup || firstGroup === group) {
+            firstGroup = group;
+            updateSelectedGroup({
+              id: firstGroup,
+              name: userGroupDoc.data().name,
+            });
+          }
+          updateGroups((groups) => [
+            ...groups,
+            { id: group, name: userGroupDoc.data().name },
+          ]);
         }
-        updateGroups((groups) => [
-          ...groups,
-          { id: group, name: userGroupDoc.data().name },
-        ]);
       });
   }
 
@@ -176,6 +193,31 @@ function App() {
 
   return (
     <div className="app">
+      {sharedGroupModalState && validGroupState ? (
+        <Modal
+          onCloseModal={() => updateSharedGroupModalState(false)}
+          title="Welcome"
+        >
+          You have been invited to this home group
+        </Modal>
+      ) : null}
+
+      {!validGroupState ? (
+        <Modal
+          onCloseModal={() => {
+            updateValidGroupState(true);
+            updateSharedGroupModalState(false);
+            if (groups.length) {
+              updateSelectedGroup(groups[1]);
+            }
+            history.push("/");
+          }}
+          title="Error"
+        >
+          No group with id {match.params.id} exists
+        </Modal>
+      ) : null}
+
       {newHomeModalState ? (
         <Modal
           editHome={homes.find((home) => {
@@ -217,6 +259,7 @@ function App() {
           ></ConfirmationButtons>
         </Modal>
       ) : null}
+
       <Dropdown
         groups={groups}
         selectedGroup={selectedGroup}
@@ -224,7 +267,9 @@ function App() {
         dropdownState={dropdownState}
         updateDropdownState={updateDropdownState}
       ></Dropdown>
+
       <AddButton addNew={onOpenNewHomeModal}></AddButton>
+
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="homes" direction="horizontal">
           {(provided) => (
