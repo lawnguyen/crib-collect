@@ -47,10 +47,12 @@ function App({ match }) {
           // If there is a group id in the url params from a group being shared
           const sharedGroup = match.params.id;
           if (sharedGroup) {
-            userGroups = [...userGroups, sharedGroup];
             firstGroup = sharedGroup;
-            updateSharedGroupModalState(true);
-            setSharedGroup(userDocRef, sharedGroup, userGroups);
+            if (!userGroups.includes(sharedGroup)) {
+              updateSharedGroupModalState(true);
+              userGroups = [...userGroups, sharedGroup];
+              setSharedGroup(userDocRef, sharedGroup, userGroups);
+            }
           }
 
           userGroups.forEach((group) => {
