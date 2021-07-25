@@ -147,6 +147,10 @@ function App({ match }) {
           id: docRef.id,
           name: `${auth.currentUser.displayName}'s homes`,
         });
+        // Refresh the page so we load the any shared groups for new users
+        if (match.params.id) {
+          window.location.reload();
+        }
       });
   }
 
