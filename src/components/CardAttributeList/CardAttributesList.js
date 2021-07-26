@@ -30,7 +30,7 @@ class CardAttributes extends React.Component {
 
     return (
       <div className="content">
-        <table className="table">
+        <table >
           <tbody>
             {Object.keys(attrToDisplayMap).map((attr) => (
               <Attribute
