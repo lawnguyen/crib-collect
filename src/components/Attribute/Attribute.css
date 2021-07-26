@@ -7,3 +7,7 @@
 .attr-name {
   font-weight: 100;
 }
+
+.td-value {
+  vertical-align: bottom !important;
+}
