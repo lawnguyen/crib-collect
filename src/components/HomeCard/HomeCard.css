@@ -3,3 +3,14 @@
   filter: alpha(opacity = 50); /* MSIE */
   background-color: darkgray;
 }
+
+.deleted-message {
+  color: darkred;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: xx-large;
+  text-align: center;
+}
