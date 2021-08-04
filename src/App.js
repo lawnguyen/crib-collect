@@ -20,12 +20,17 @@ import CopyToClipboard from "./components/CopyToClipboard/CopyToClipboard";
 function App({ match }) {
   const [homes, updateHomes] = useState([]);
   const [selectedGroup, updateSelectedGroup] = useState({});
+  const [selectedSort, updateSelectedSort] = useState({
+    id: "recentlyAdded",
+    name: "Recently added",
+  });
   const [groups, updateGroups] = useState([]);
   const [sharedGroupName, updateSharedGroupName] = useState(null);
   const [validGroupState, updateValidGroupState] = useState(true);
   const [sharedGroupModalState, updateSharedGroupModalState] = useState(false);
   const [shareModalState, updateShareModalState] = useState(false);
-  const [dropdownState, updateDropdownState] = useState(false);
+  const [groupDropdownState, updateGroupDropdownState] = useState(false);
+  const [sortDropdownState, updateSortDropdownState] = useState(false);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
@@ -334,13 +339,30 @@ function App({ match }) {
         ) : null}
 
         <div className="sorting-and-sharing">
-          <Dropdown
-            groups={groups}
-            selectedGroup={selectedGroup}
-            updateSelectedGroup={updateSelectedGroup}
-            dropdownState={dropdownState}
-            updateDropdownState={updateDropdownState}
-          ></Dropdown>
+          <div>
+            <Dropdown
+              className="dropdown"
+              items={groups}
+              placeholderText="Group: "
+              selectedItem={selectedGroup}
+              updateSelectedItem={updateSelectedGroup}
+              dropdownState={groupDropdownState}
+              updateDropdownState={updateGroupDropdownState}
+            ></Dropdown>
+            <Dropdown
+              className="dropdown"
+              items={[
+                { id: "recentlyAdded", name: "Recently added" },
+                { id: "price", name: "Price" },
+                { id: "size", name: "Size" },
+              ]}
+              placeholderText="Sort by: "
+              selectedItem={selectedSort}
+              updateSelectedItem={updateSelectedSort}
+              dropdownState={sortDropdownState}
+              updateDropdownState={updateSortDropdownState}
+            ></Dropdown>
+          </div>
           <ShareButton
             onClick={() => updateShareModalState(true)}
           ></ShareButton>

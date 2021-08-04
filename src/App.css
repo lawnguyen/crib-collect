@@ -1,13 +1,17 @@
 .app {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .homes {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .sorting-and-sharing {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdown {
+  padding-right: 1rem;
 }

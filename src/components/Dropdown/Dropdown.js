@@ -3,11 +3,12 @@ import expandIcon from "../../icons/expandDropdown.svg";
 import "./Dropdown.css";
 
 function Dropdown({
-  groups,
-  selectedGroup,
-  updateSelectedGroup,
+  items,
+  selectedItem,
+  updateSelectedItem,
   dropdownState,
   updateDropdownState,
+  placeholderText,
 }) {
   return (
     <div className={`dropdown ${dropdownState ? "is-active" : ""} `}>
@@ -20,7 +21,10 @@ function Dropdown({
             updateDropdownState(!dropdownState);
           }}
         >
-          <span>{selectedGroup.name}</span>
+          <p>
+            <strong>{placeholderText ?? ""}</strong>
+          </p>
+          <span>{selectedItem.name}</span>
           <span>
             <img
               className="expand-icon"
@@ -32,22 +36,22 @@ function Dropdown({
       </div>
       <div className="dropdown-menu" id="dropdown-menu" role="menu">
         <div className="dropdown-content">
-          {groups.map((group) => {
+          {items.map((item) => {
             return (
               <button
-                key={group.id}
+                key={item.id}
                 onClick={() => {
-                  updateSelectedGroup({
-                    id: group.id,
-                    name: group.name,
+                  updateSelectedItem({
+                    id: item.id,
+                    name: item.name,
                   });
                   updateDropdownState(false);
                 }}
                 className={`dropdown-item ${
-                  selectedGroup.id === group.id ? "is-active" : ""
+                  selectedItem.id === item.id ? "is-active" : ""
                 }`}
               >
-                {group.name}
+                {item.name}
               </button>
             );
           })}
