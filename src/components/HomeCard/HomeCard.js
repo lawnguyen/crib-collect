@@ -12,7 +12,9 @@ class HomeCard extends React.Component {
         className={`card ${this.props.homeDetails.isDeleted ? "deleted" : ""}`}
       >
         {this.props.homeDetails.isDeleted ? (
-          <p class="deleted-message">This home's posting has been deleted</p>
+          <p className="deleted-message">
+            This home's posting has been deleted
+          </p>
         ) : null}
         <CardHeader
           title={this.props.homeDetails.title}
