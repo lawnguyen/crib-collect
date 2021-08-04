@@ -17,6 +17,7 @@ class HomeForm extends React.Component {
     const editHome = this.props.editHome;
     this.state = editHome
       ? {
+          isDeleted: editHome.isDeleted ? [editHome.isDeleted] : [],
           link: editHome.link,
           title: editHome.title,
           price: editHome.price,
@@ -38,6 +39,7 @@ class HomeForm extends React.Component {
           bathroomError: false,
         }
       : {
+          isDeleted: [],
           link: "",
           title: "",
           price: "",
@@ -96,6 +98,7 @@ class HomeForm extends React.Component {
     }
     const editHome = this.props.editHome ?? null;
     const homeModel = {
+      isDeleted: this.state.isDeleted.includes("Deleted") ? "Deleted" : "",
       id: editHome ? editHome.id : uuidv1(),
       link: this.state.link,
       title: this.state.title,
@@ -200,6 +203,25 @@ class HomeForm extends React.Component {
   render() {
     return (
       <div>
+        {this.props.editHome ? (
+          <CheckboxField
+            onChange={this.handleInputChange}
+            name="isDeleted"
+            options={["Deleted"]}
+            selectedList={this.state.isDeleted}
+          ></CheckboxField>
+        ) : null}
+
+        <FieldLabel label="URL" isRequired={true}></FieldLabel>
+        <TextField
+          name="link"
+          onChange={this.handleInputChange}
+          type="text"
+          placeholder="https://"
+          value={this.state.link}
+          isError={this.state.urlError}
+        ></TextField>
+
         <FieldLabel label="Title" isRequired={true}></FieldLabel>
         <TextField
           name="title"
@@ -219,16 +241,6 @@ class HomeForm extends React.Component {
           placeholder="$"
           value={this.state.price}
           isError={this.state.priceError}
-        ></TextField>
-
-        <FieldLabel label="URL" isRequired={true}></FieldLabel>
-        <TextField
-          name="link"
-          onChange={this.handleInputChange}
-          type="text"
-          placeholder="https://"
-          value={this.state.link}
-          isError={this.state.urlError}
         ></TextField>
 
         <FieldLabel label="Number of bedrooms" isRequired={true}></FieldLabel>

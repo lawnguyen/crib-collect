@@ -1,0 +1,5 @@
+.deleted {
+  opacity: 0.5; /* Real browsers */
+  filter: alpha(opacity = 50); /* MSIE */
+  background-color: darkgray;
+}
