@@ -103,7 +103,12 @@ function App({ match }) {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          homeData.push(doc.data());
+          const data = doc.data();
+          if (data.isDeleted) {
+            homeData.push(doc.data());
+          } else {
+            homeData.unshift(doc.data());
+          }
         });
         updateHomes([...homes, ...homeData]);
         setGroupData(firstGroup, group);
@@ -221,7 +226,7 @@ function App({ match }) {
     if (homes.some((home) => home.link === newHome.link)) {
       updatehomeExistsWarningModalState(true);
     } else {
-      updateHomes([...homes, newHome]);
+      updateHomes([newHome, ...homes]);
       onCloseNewHomeModal();
     }
   }
