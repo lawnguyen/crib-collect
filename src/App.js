@@ -21,8 +21,8 @@ function App({ match }) {
   const [homes, updateHomes] = useState([]);
   const [selectedGroup, updateSelectedGroup] = useState({});
   const [selectedSort, updateSelectedSort] = useState({
-    id: "recentlyAdded",
-    name: "Recently added",
+    id: "default",
+    name: "Default",
   });
   const [groups, updateGroups] = useState([]);
   const [sharedGroupName, updateSharedGroupName] = useState(null);
@@ -247,6 +247,50 @@ function App({ match }) {
     return url;
   }
 
+  function sortByPrice(filteredHomes) {
+    return [...filteredHomes].sort((a, b) => {
+      if (parseInt(a.price) < parseInt(b.price)) {
+        return -1;
+      }
+      if (parseInt(a.price) > parseInt(b.price)) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  function sortByRecentlyAdded(filteredHomes) {
+    return [...filteredHomes].sort((a, b) => {
+      if (a.dateAdded > b.dateAdded) {
+        return -1;
+      }
+      if (a.dateAdded < b.dateAdded) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  function filterAndSortHomes(sortBy) {
+    const filteredHomes = homes.filter((h) => selectedGroup.id === h.groupId);
+    let sortedHomes;
+
+    switch (sortBy) {
+      case "price":
+        sortedHomes = sortByPrice(filteredHomes);
+        break;
+      case "recentlyAdded":
+        sortedHomes = sortByRecentlyAdded(filteredHomes);
+        break;
+      case "default":
+        sortedHomes = filteredHomes;
+        break;
+      default:
+        sortedHomes = filteredHomes;
+    }
+    return sortedHomes;
+  }
+
   return (
     <div>
       <NavBar
@@ -352,6 +396,7 @@ function App({ match }) {
             <Dropdown
               className="dropdown"
               items={[
+                { id: "default", name: "Default" },
                 { id: "recentlyAdded", name: "Recently added" },
                 { id: "price", name: "Price" },
                 { id: "size", name: "Size" },
@@ -378,32 +423,30 @@ function App({ match }) {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {homes
-                  .filter((h) => selectedGroup.id === h.groupId)
-                  .map((home, index) => {
-                    return (
-                      <Draggable
-                        key={home.id}
-                        draggableId={home.id}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <li
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-widescreen"
-                          >
-                            <HomeCard
-                              editHome={onEditHome}
-                              deleteHome={onDeleteHome}
-                              homeDetails={home}
-                            ></HomeCard>
-                          </li>
-                        )}
-                      </Draggable>
-                    );
-                  })}
+                {filterAndSortHomes(selectedSort.id).map((home, index) => {
+                  return (
+                    <Draggable
+                      key={home.id}
+                      draggableId={home.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="home column is-full-mobile is-one-quarter-fullhd is-half-tablet is-one-third-widescreen"
+                        >
+                          <HomeCard
+                            editHome={onEditHome}
+                            deleteHome={onDeleteHome}
+                            homeDetails={home}
+                          ></HomeCard>
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
                 {provided.placeholder}
               </ul>
             )}
