@@ -271,6 +271,20 @@ function App({ match }) {
     });
   }
 
+  function sortBySize(filteredHomes) {
+    return [...filteredHomes].sort((a, b) => {
+      a = isNaN(parseInt(a.attributes.sqft)) ? 0 : parseInt(a.attributes.sqft);
+      b = isNaN(parseInt(b.attributes.sqft)) ? 0 : parseInt(b.attributes.sqft);
+      if (a > b) {
+        return -1;
+      }
+      if (a < b) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
   function filterAndSortHomes(sortBy) {
     const filteredHomes = homes.filter((h) => selectedGroup.id === h.groupId);
     let sortedHomes;
@@ -281,6 +295,9 @@ function App({ match }) {
         break;
       case "recentlyAdded":
         sortedHomes = sortByRecentlyAdded(filteredHomes);
+        break;
+      case "size":
+        sortedHomes = sortBySize(filteredHomes);
         break;
       case "default":
         sortedHomes = filteredHomes;
