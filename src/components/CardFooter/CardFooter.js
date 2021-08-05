@@ -1,6 +1,7 @@
 import React from "react";
 import deleteIcon from "../../icons/delete.svg";
 import editIcon from "../../icons/edit.svg";
+import starIcon from "../../icons/star.svg";
 import "./CardFooter.css";
 
 class CardFooter extends React.Component {
@@ -15,6 +16,16 @@ class CardFooter extends React.Component {
         >
           <img src={editIcon} alt="edit icon" />
         </button>
+
+        <button
+          onClick={() => {
+            console.log("rating");
+          }}
+          className="card-footer-item"
+        >
+          <img src={starIcon} alt="rating icon" />
+        </button>
+
         <button
           onClick={() => {
             this.props.deleteHome(this.props.homeId);
