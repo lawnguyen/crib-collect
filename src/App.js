@@ -217,6 +217,21 @@ function App({ match }) {
     updateDeleteHomeId(homeId);
   }
 
+  function onRateHome(homeId) {
+    firestore
+      .collection("ratings")
+      .doc(`${homeId}_${auth.currentUser.uid}`)
+      .get()
+      .then((ratingDoc) => {
+        const homeRating = ratingDoc.data();
+        if (homeRating) {
+          updateRatingState(homeRating.rating);
+        }
+        updateRatingModalState(true);
+        updateRateHomeId(homeId);
+      });
+  }
+
   function editHome(updatedHome) {
     const homeIndex = homes.findIndex((x) => x.id === updatedHome.id);
     updateHomes(update(homes, { [homeIndex]: { $set: updatedHome } }));
@@ -419,6 +434,7 @@ function App({ match }) {
               emptySymbol={<img src={starBorderIcon} alt="empty rating icon" />}
               fullSymbol={<img src={starIcon} alt="rating icon" />}
               onClick={(value) => updateRatingState(value)}
+              initialRating={ratingState}
             />
             <ConfirmationButtons
               onCancel={() => onCloseRatingModal()}
@@ -497,10 +513,7 @@ function App({ match }) {
                           <HomeCard
                             editHome={onEditHome}
                             deleteHome={onDeleteHome}
-                            rateHome={(homeId) => {
-                              updateRatingModalState(true);
-                              updateRateHomeId(homeId);
-                            }}
+                            rateHome={(homeId) => onRateHome(homeId)}
                             homeDetails={home}
                           ></HomeCard>
                         </li>
