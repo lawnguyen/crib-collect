@@ -113,17 +113,38 @@ function App({ match }) {
       .where("groupId", "==", group)
       .get()
       .then((querySnapshot) => {
+        let getRatingPromises = [];
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.isDeleted) {
-            homeData.push(doc.data());
-          } else {
-            homeData.unshift(doc.data());
-          }
+          getRatingPromises.push(getRatingForHome(homeData, doc.data()));
         });
-        updateHomes([...homes, ...homeData]);
-        setGroupData(firstGroup, group);
+
+        Promise.all(getRatingPromises).then(() => {
+          updateHomes([...homes, ...homeData]);
+          setGroupData(firstGroup, group);
+        });
       });
+  }
+
+  function getRatingForHome(homeData, data) {
+    return new Promise((resolve, reject) => {
+      firestore
+        .collection("ratings")
+        .doc(`${data.id}_${auth.currentUser.uid}`)
+        .get()
+        .then((ratingDoc) => {
+          if (ratingDoc.data()) {
+            data.attributes.rating = `${ratingDoc.data().rating}/5`;
+          } else {
+            data.attributes.rating = "-/5";
+          }
+          if (data.isDeleted) {
+            homeData.push(data);
+          } else {
+            homeData.unshift(data);
+          }
+          resolve();
+        });
+    });
   }
 
   function setGroupData(firstGroup, group) {

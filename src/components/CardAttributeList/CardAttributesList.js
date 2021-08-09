@@ -11,11 +11,13 @@ import utilities from "../../icons/utilities.svg";
 import building from "../../icons/building.svg";
 import notes from "../../icons/notes.svg";
 import aircon from "../../icons/aircon.svg";
+import starIcon from "../../icons/star.svg";
 
 class CardAttributes extends React.Component {
   render() {
     const attributes = this.props.attributes;
     let attrToDisplayMap = {
+      rating: { label: "rating avg.", icon: starIcon },
       bedrooms: { label: "beds", icon: bed },
       bathrooms: { label: "baths", icon: bath },
       sqft: { label: "sqft", icon: sqft },
