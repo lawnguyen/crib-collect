@@ -14,6 +14,9 @@ import { useHistory } from "react-router-dom";
 import NavBar from "./components/Navbar/NavBar";
 import ShareButton from "./components/ShareButton/ShareButton";
 import CopyToClipboard from "./components/CopyToClipboard/CopyToClipboard";
+import Rating from "react-rating";
+import starIcon from "./icons/star.svg";
+import starBorderIcon from "./icons/starBorder.svg";
 
 // https://www.freecodecamp.org/news/how-to-add-drag-and-drop-in-react-with-react-beautiful-dnd/
 
@@ -32,12 +35,15 @@ function App({ match }) {
   const [groupDropdownState, updateGroupDropdownState] = useState(false);
   const [sortDropdownState, updateSortDropdownState] = useState(false);
   const [newHomeModalState, updateNewHomeModalState] = useState(false);
+  const [ratingModalState, updateRatingModalState] = useState(false);
+  const [ratingState, updateRatingState] = useState(null);
   const [confirmDeleteModalState, updateConfirmDeleteModalState] =
     useState(false);
   const [homeExistsWarningModalState, updatehomeExistsWarningModalState] =
     useState(false);
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
+  const [rateHomeId, updateRateHomeId] = useState(null);
   const history = useHistory();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,6 +202,11 @@ function App({ match }) {
     updateDeleteHomeId(null);
   }
 
+  function onCloseRatingModal() {
+    updateRatingModalState(false);
+    updateRatingState(null);
+  }
+
   function onEditHome(homeId) {
     onOpenNewHomeModal();
     updateEditHomeId(homeId);
@@ -234,6 +245,15 @@ function App({ match }) {
       updateHomes([newHome, ...homes]);
       onCloseNewHomeModal();
     }
+  }
+
+  function rateHome() {
+    firestore
+      .collection("ratings")
+      .doc(`${rateHomeId}_${auth.currentUser.uid}`)
+      .set({
+        rating: ratingState,
+      });
   }
 
   function getShareUrl() {
@@ -390,6 +410,26 @@ function App({ match }) {
           </Modal>
         ) : null}
 
+        {ratingModalState ? (
+          <Modal
+            onCloseModal={() => onCloseRatingModal()}
+            title="Give this home a personal rating"
+          >
+            <Rating
+              emptySymbol={<img src={starBorderIcon} alt="empty rating icon" />}
+              fullSymbol={<img src={starIcon} alt="rating icon" />}
+              onClick={(value) => updateRatingState(value)}
+            />
+            <ConfirmationButtons
+              onCancel={() => onCloseRatingModal()}
+              onConfirm={() => {
+                rateHome();
+                onCloseRatingModal();
+              }}
+            ></ConfirmationButtons>
+          </Modal>
+        ) : null}
+
         {shareModalState ? (
           <Modal
             onCloseModal={() => updateShareModalState(false)}
@@ -457,6 +497,10 @@ function App({ match }) {
                           <HomeCard
                             editHome={onEditHome}
                             deleteHome={onDeleteHome}
+                            rateHome={(homeId) => {
+                              updateRatingModalState(true);
+                              updateRateHomeId(homeId);
+                            }}
                             homeDetails={home}
                           ></HomeCard>
                         </li>

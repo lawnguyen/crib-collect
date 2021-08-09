@@ -19,7 +19,7 @@ class CardFooter extends React.Component {
 
         <button
           onClick={() => {
-            console.log("rating");
+            this.props.rateHome(this.props.homeId);
           }}
           className="card-footer-item"
         >
