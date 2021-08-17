@@ -30,6 +30,7 @@ class HomeCard extends React.Component {
           editHome={this.props.editHome}
           deleteHome={this.props.deleteHome}
           rateHome={this.props.rateHome}
+          homeRating={this.props.homeDetails.attributes.rating}
         ></CardFooter>
       </div>
     );

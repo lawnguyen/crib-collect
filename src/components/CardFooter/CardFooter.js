@@ -2,6 +2,7 @@ import React from "react";
 import deleteIcon from "../../icons/delete.svg";
 import editIcon from "../../icons/edit.svg";
 import starIcon from "../../icons/star.svg";
+import starBorderIcon from "../../icons/starBorder.svg";
 import "./CardFooter.css";
 
 class CardFooter extends React.Component {
@@ -23,7 +24,10 @@ class CardFooter extends React.Component {
           }}
           className="card-footer-item"
         >
-          <img src={starIcon} alt="rating icon" />
+          <img
+            src={this.props.homeRating === "-/5" ? starBorderIcon : starIcon}
+            alt="rating icon"
+          />
         </button>
 
         <button

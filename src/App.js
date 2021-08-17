@@ -136,12 +136,15 @@ function App({ match }) {
           ratingDocs.forEach((ratingDoc) => {
             sum += ratingDoc.data().rating;
           });
+          const numRatings = ratingDocs.size;
           if (sum) {
             console.log(ratingDocs.size);
             data.attributes.rating = `${sum / ratingDocs.size}/5`;
           } else {
             data.attributes.rating = "-/5";
           }
+          data.attributes.numRatings = numRatings;
+          data.attributes.sumRatings = sum;
 
           if (data.isDeleted) {
             homeData.push(data);
@@ -297,6 +300,21 @@ function App({ match }) {
         rating: ratingState,
         homeId: rateHomeId,
         userId: auth.currentUser.uid,
+      })
+      .then(() => {
+        // recalculate rating average
+        let homesCopy = [...homes];
+        const homeIndex = homes.findIndex((home) => home.id === rateHomeId);
+        let currentHome = { ...homes[homeIndex] };
+
+        currentHome.attributes.numRatings++;
+        currentHome.attributes.sumRatings += ratingState;
+        currentHome.attributes.rating = `${
+          currentHome.attributes.sumRatings / currentHome.attributes.numRatings
+        }/5`;
+
+        homesCopy[homeIndex] = currentHome;
+        updateHomes(homesCopy);
       });
   }
 
