@@ -138,7 +138,6 @@ function App({ match }) {
           });
           const numRatings = ratingDocs.size;
           if (sum) {
-            console.log(ratingDocs.size);
             data.attributes.rating = `${sum / ratingDocs.size}/5`;
           } else {
             data.attributes.rating = "-/5";
@@ -367,6 +366,22 @@ function App({ match }) {
     });
   }
 
+  function sortByRating(filteredHomes) {
+    return [...filteredHomes].sort((a, b) => {
+      const aRating = a.attributes.rating.split("/")[0];
+      const bRating = b.attributes.rating.split("/")[0];
+      a = parseFloat(aRating !== "-" ? aRating : 0);
+      b = parseFloat(bRating !== "-" ? bRating : 0);
+      if (a > b) {
+        return -1;
+      }
+      if (a < b) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
   function filterAndSortHomes(sortBy) {
     const filteredHomes = homes.filter((h) => selectedGroup.id === h.groupId);
     let sortedHomes;
@@ -380,6 +395,9 @@ function App({ match }) {
         break;
       case "size":
         sortedHomes = sortBySize(filteredHomes);
+        break;
+      case "rating":
+        sortedHomes = sortByRating(filteredHomes);
         break;
       case "default":
         sortedHomes = filteredHomes;
@@ -520,6 +538,7 @@ function App({ match }) {
                 { id: "recentlyAdded", name: "Recently added" },
                 { id: "price", name: "Price" },
                 { id: "size", name: "Size" },
+                { id: "rating", name: "Rating" },
               ]}
               placeholderText="Sort by: "
               selectedItem={selectedSort}
