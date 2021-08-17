@@ -129,14 +129,20 @@ function App({ match }) {
     return new Promise((resolve, reject) => {
       firestore
         .collection("ratings")
-        .doc(`${data.id}_${auth.currentUser.uid}`)
+        .where("homeId", "==", data.id)
         .get()
-        .then((ratingDoc) => {
-          if (ratingDoc.data()) {
-            data.attributes.rating = `${ratingDoc.data().rating}/5`;
+        .then((ratingDocs) => {
+          let sum = 0;
+          ratingDocs.forEach((ratingDoc) => {
+            sum += ratingDoc.data().rating;
+          });
+          if (sum) {
+            console.log(ratingDocs.size);
+            data.attributes.rating = `${sum / ratingDocs.size}/5`;
           } else {
             data.attributes.rating = "-/5";
           }
+
           if (data.isDeleted) {
             homeData.push(data);
           } else {
@@ -289,6 +295,8 @@ function App({ match }) {
       .doc(`${rateHomeId}_${auth.currentUser.uid}`)
       .set({
         rating: ratingState,
+        homeId: rateHomeId,
+        userId: auth.currentUser.uid,
       });
   }
 
