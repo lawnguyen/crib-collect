@@ -326,9 +326,9 @@ function App({ match }) {
         currentHome.userRating = ratingState;
         currentHome.attributes.numRatings++;
         currentHome.attributes.sumRatings += ratingState;
-        currentHome.attributes.rating = `${
+        currentHome.attributes.rating = `${(
           currentHome.attributes.sumRatings / currentHome.attributes.numRatings
-        }/5`;
+        ).toFixed(2)}/5`;
 
         homesCopy[homeIndex] = currentHome;
         updateHomes(homesCopy);
