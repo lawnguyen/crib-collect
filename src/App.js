@@ -155,10 +155,11 @@ function App({ match }) {
           });
           const numRatings = ratingDocs.size;
           if (sum) {
-            data.attributes.rating = `${sum / ratingDocs.size}/5`;
+            data.attributes.rating = `${sum / numRatings}`;
           } else {
-            data.attributes.rating = "-/5";
+            data.attributes.rating = "-";
           }
+          data.attributes.rating += `/5 (${numRatings} ratings)`;
           data.attributes.numRatings = numRatings;
           data.attributes.sumRatings = sum;
 
@@ -336,7 +337,7 @@ function App({ match }) {
         currentHome.userRating = ratingState;
         currentHome.attributes.rating = `${roundToTwo(
           currentHome.attributes.sumRatings / currentHome.attributes.numRatings
-        )}/5`;
+        )}/5 (${currentHome.attributes.numRatings} ratings)`;
 
         homesCopy[homeIndex] = currentHome;
         updateHomes(homesCopy);
