@@ -44,10 +44,20 @@ function App({ match }) {
   const [editHomeId, updateEditHomeId] = useState(null);
   const [deleteHomeId, updateDeleteHomeId] = useState(null);
   const [rateHomeId, updateRateHomeId] = useState(null);
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 1450);
   const history = useHistory();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(getHomes, []);
+
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 1450);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
 
   function getHomes() {
     const userDocRef = firestore.collection("users").doc(auth.currentUser.uid);
@@ -568,6 +578,7 @@ function App({ match }) {
                       key={home.id}
                       draggableId={home.id}
                       index={index}
+                      isDragDisabled={!isDesktop}
                     >
                       {(provided) => (
                         <li
