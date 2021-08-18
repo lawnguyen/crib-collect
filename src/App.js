@@ -326,13 +326,17 @@ function App({ match }) {
         currentHome.userRating = ratingState;
         currentHome.attributes.numRatings++;
         currentHome.attributes.sumRatings += ratingState;
-        currentHome.attributes.rating = `${(
+        currentHome.attributes.rating = `${roundToTwo(
           currentHome.attributes.sumRatings / currentHome.attributes.numRatings
-        ).toFixed(2)}/5`;
+        )}/5`;
 
         homesCopy[homeIndex] = currentHome;
         updateHomes(homesCopy);
       });
+  }
+
+  function roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
   }
 
   function getShareUrl() {
