@@ -323,9 +323,17 @@ function App({ match }) {
         const homeIndex = homes.findIndex((home) => home.id === rateHomeId);
         let currentHome = { ...homes[homeIndex] };
 
+        if (currentHome.userRating === 0) {
+          // User has not rated this home yet
+          currentHome.attributes.numRatings++;
+          currentHome.attributes.sumRatings += ratingState;
+        } else {
+          // User has rated home already so remove old rating and add new one
+          currentHome.attributes.sumRatings -= currentHome.userRating;
+          currentHome.attributes.sumRatings += ratingState;
+        }
+
         currentHome.userRating = ratingState;
-        currentHome.attributes.numRatings++;
-        currentHome.attributes.sumRatings += ratingState;
         currentHome.attributes.rating = `${roundToTwo(
           currentHome.attributes.sumRatings / currentHome.attributes.numRatings
         )}/5`;
