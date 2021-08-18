@@ -125,7 +125,7 @@ function App({ match }) {
       .then((querySnapshot) => {
         let getRatingPromises = [];
         querySnapshot.forEach((doc) => {
-          getRatingPromises.push(getRatingForHome(homeData, doc.data()));
+          getRatingPromises.push(getRatingsForHome(homeData, doc.data()));
         });
 
         Promise.all(getRatingPromises).then(() => {
@@ -135,7 +135,7 @@ function App({ match }) {
       });
   }
 
-  function getRatingForHome(homeData, data) {
+  function getRatingsForHome(homeData, data) {
     return new Promise((resolve, reject) => {
       firestore
         .collection("ratings")
@@ -143,8 +143,15 @@ function App({ match }) {
         .get()
         .then((ratingDocs) => {
           let sum = 0;
+          data.userRating = 0;
+
           ratingDocs.forEach((ratingDoc) => {
-            sum += ratingDoc.data().rating;
+            const rating = ratingDoc.data().rating;
+            sum += rating;
+
+            if (ratingDoc.data().userId === auth.currentUser.uid) {
+              data.userRating = rating;
+            }
           });
           const numRatings = ratingDocs.size;
           if (sum) {
@@ -316,6 +323,7 @@ function App({ match }) {
         const homeIndex = homes.findIndex((home) => home.id === rateHomeId);
         let currentHome = { ...homes[homeIndex] };
 
+        currentHome.userRating = ratingState;
         currentHome.attributes.numRatings++;
         currentHome.attributes.sumRatings += ratingState;
         currentHome.attributes.rating = `${

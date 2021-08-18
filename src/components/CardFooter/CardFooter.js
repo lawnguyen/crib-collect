@@ -25,7 +25,7 @@ class CardFooter extends React.Component {
           className="card-footer-item"
         >
           <img
-            src={this.props.homeRating === "-/5" ? starBorderIcon : starIcon}
+            src={this.props.userRating === 0 ? starBorderIcon : starIcon}
             alt="rating icon"
           />
         </button>
