@@ -403,10 +403,10 @@ function App({ match }) {
 
   function sortByRating(filteredHomes) {
     return [...filteredHomes].sort((a, b) => {
-      const aRating = a.attributes.rating.split("/")[0] ?? "-";
-      const bRating = b.attributes.rating.split("/")[0] ?? "-";
-      a = parseFloat(aRating !== "-" ? aRating : 0);
-      b = parseFloat(bRating !== "-" ? bRating : 0);
+      const aRating = a.attributes.rating?.split("/")[0] ?? "-";
+      const bRating = b.attributes.rating?.split("/")[0] ?? "-";
+      a = parseFloat(aRating || aRating !== "-" ? aRating : 0);
+      b = parseFloat(bRating || bRating !== "-" ? bRating : 0);
       if (a > b) {
         return -1;
       }
