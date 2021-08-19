@@ -74,7 +74,9 @@ class HomeForm extends React.Component {
 
     if (
       name === "link" &&
-      this.props.homes.some((home) => home.link === value)
+      this.props.homes.some(
+        (home) => home.link === value && home.isDeleted !== "Deleted"
+      )
     ) {
       this.props.duplicateHomeWarning();
     }

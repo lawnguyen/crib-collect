@@ -301,7 +301,11 @@ function App({ match }) {
   }
 
   function addNewHome(newHome) {
-    if (homes.some((home) => home.link === newHome.link)) {
+    if (
+      homes.some(
+        (home) => home.link === newHome.link && home.isDeleted !== "Deleted"
+      )
+    ) {
       updatehomeExistsWarningModalState(true);
     } else {
       updateHomes([newHome, ...homes]);
