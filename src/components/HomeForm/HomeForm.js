@@ -106,6 +106,7 @@ class HomeForm extends React.Component {
       title: this.state.title,
       price: this.state.price,
       groupId: this.props.groupId,
+      dateAdded: editHome ? editHome.dateAdded : null,
       attributes: {
         bedrooms: this.state.bedrooms,
         bathrooms: this.state.bathrooms,
