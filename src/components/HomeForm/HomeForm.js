@@ -127,6 +127,10 @@ class HomeForm extends React.Component {
       docRef
         .update(homeModel)
         .then(() => {
+          // rating data is not stored in the firebase model but is stored in our homes state
+          homeModel.attributes.rating = editHome.attributes.rating;
+          homeModel.attributes.numRatings = editHome.attributes.numRatings;
+          homeModel.attributes.sumRatings = editHome.attributes.sumRatings;
           this.props.onSubmitEdit(homeModel);
         })
         .catch((error) => {
