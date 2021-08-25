@@ -146,6 +146,9 @@ class HomeForm extends React.Component {
           });
 
           homeModel.dateAdded = dateAdded;
+          homeModel.attributes.rating = "-/5 (0 ratings)";
+          homeModel.attributes.numRatings = 0;
+          homeModel.attributes.sumRatings = 0;
           this.props.addNewHome(homeModel);
         })
         .catch((error) => {
