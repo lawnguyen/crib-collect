@@ -155,7 +155,7 @@ function App({ match }) {
           });
           const numRatings = ratingDocs.size;
           if (sum) {
-            data.attributes.rating = `${sum / numRatings}`;
+            data.attributes.rating = `${roundToTwo(sum / numRatings)}`;
           } else {
             data.attributes.rating = "-";
           }
