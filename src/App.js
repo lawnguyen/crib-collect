@@ -328,7 +328,7 @@ function App({ match }) {
         const homeIndex = homes.findIndex((home) => home.id === rateHomeId);
         let currentHome = { ...homes[homeIndex] };
 
-        if (currentHome.userRating === 0) {
+        if (!currentHome.userRating) {
           // User has not rated this home yet
           currentHome.attributes.numRatings++;
           currentHome.attributes.sumRatings += ratingState;
