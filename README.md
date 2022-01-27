@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# 🏠 CribCollect 🏠
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Access at https://crib-collect.web.app/
 
-## Available Scripts
+A responsive web app to help individuals and roommates with apartment hunting 😊
 
-In the project directory, you can run:
+Built with React and Firebase.
 
-### `npm start`
+## Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 🏠 Add homes to your group
+- 🧑‍🤝‍🧑 Share the group with your friends!
+- 📝 Add details and notes to your homes
+- ⭐ Rate and compare homes by the same criteria
+- 🤝 Find your perfect new home
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
+### Application is responsive, use it on any device!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Desktop:
+![main-screen](.\screenshots\main-screen.png)
 
-### `npm run build`
+Tablets:
+![main-screen-tablet](.\screenshots\main-screen-tablet.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Mobile:
+![main-screen-mobile](.\screenshots\main-screen-mobile.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Add homes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![add-new-home](.\screenshots\add-new-home.png)
 
-### `npm run eject`
+### Rate the homes
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![rate-home-tablet](.\screenshots\rate-home-tablet.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Share your group with friends
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![share-group-tablet](.\screenshots\share-group-tablet.png)
