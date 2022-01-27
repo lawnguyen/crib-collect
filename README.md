@@ -19,22 +19,22 @@ Built with React and Firebase.
 ### Application is responsive, use it on any device!
 
 Desktop:
-![main-screen](.\screenshots\main-screen.png)
+![main-screen](.\screenshots\main-screen.png?raw=true)
 
 Tablets:
-![main-screen-tablet](.\screenshots\main-screen-tablet.png)
+![main-screen-tablet](.\screenshots\main-screen-tablet.png?raw=true)
 
 Mobile:
-![main-screen-mobile](.\screenshots\main-screen-mobile.png)
+![main-screen-mobile](.\screenshots\main-screen-mobile.png?raw=true)
 
 ### Add homes
 
-![add-new-home](.\screenshots\add-new-home.png)
+![add-new-home](.\screenshots\add-new-home.png?raw=true)
 
 ### Rate the homes
 
-![rate-home-tablet](.\screenshots\rate-home-tablet.png)
+![rate-home-tablet](.\screenshots\rate-home-tablet.png?raw=true)
 
 ### Share your group with friends
 
-![share-group-tablet](.\screenshots\share-group-tablet.png)
+![share-group-tablet](.\screenshots\share-group-tablet.png?raw=true)
