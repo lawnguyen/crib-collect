@@ -10,4 +10,6 @@
 
 .td-value {
   vertical-align: bottom !important;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
