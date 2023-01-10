@@ -8,6 +8,7 @@ Built with React and Firebase.
 
 ## Usage
 
+- 🌐 Social login via Google or Facebook
 - 🏠 Add homes to your group
 - 🧑‍🤝‍🧑 Share the group with your friends!
 - 📝 Add details and notes to your homes
